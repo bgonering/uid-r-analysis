@@ -2,27 +2,815 @@ library(tidyverse)
 library(ggplot2)
 
 meta <- read_csv("language metadata.csv")
-childes <- read_csv("childes_brown-results.csv")
-breton <- read_csv("ud_bre-results.csv")
-welsh <- read_csv("ud_cym-results.csv")
-german <- read_csv("ud_deu-results.csv")
-english <- read_csv("ud_eng-results.csv")
-basque <- read_csv("ud_eus-results.csv")
-irish <- read_csv("ud_gae-results.csv")
-scottish_gaelic <- read_csv("ud_gai-results.csv")
-hindi <- read_csv("ud_hin-results.csv")
-hungarian <- read_csv("ud_hun-results.csv")
-indonesian <- read_csv("ud_ind-results.csv")
-japanese <- read_csv("ud_ja-results.csv")
-korean <- read_csv("ud_kor-results.csv")
-mbya_guarani <- read_csv("ud_mgu-results.csv")
-dutch <- read_csv("ud_ned-results.csv")
-tagalog <- read_csv("ud_tag-results.csv")
-turkish <- read_csv("ud_tur-results.csv")
-vietnamese <- read_csv("ud_vie-results.csv")
-warlpiri <- read_csv("ud_war-results.csv")
-wolof <- read_csv("ud_wol-results.csv")
-mandarin <- read_csv("ud_zho-results.csv")
+childes <- read_csv("childes_brown-results.csv") %>%
+  mutate(language = "English CHILDES")
+ancient_greek <- read_csv("ud_ael-results.csv") %>%
+  mutate(language = "Ancient Greek") %>%
+  bind_rows(read_csv("ud_ael-subset1-results.csv") %>% mutate(language = "Ancient Greek subset 1")) %>%
+  bind_rows(read_csv("ud_ael-subset2-results.csv") %>% mutate(language = "Ancient Greek subset 2")) %>%
+  bind_rows(read_csv("ud_ael-subset3-results.csv") %>% mutate(language = "Ancient Greek subset 3")) %>%
+  bind_rows(read_csv("ud_ael-subset4-results.csv") %>% mutate(language = "Ancient Greek subset 4")) %>%
+  bind_rows(read_csv("ud_ael-subset5-results.csv") %>% mutate(language = "Ancient Greek subset 5")) %>%
+  bind_rows(read_csv("ud_ael-subset6-results.csv") %>% mutate(language = "Ancient Greek subset 6")) %>%
+  bind_rows(read_csv("ud_ael-subset7-results.csv") %>% mutate(language = "Ancient Greek subset 7")) %>%
+  bind_rows(read_csv("ud_ael-subset8-results.csv") %>% mutate(language = "Ancient Greek subset 8")) %>%
+  bind_rows(read_csv("ud_ael-subset9-results.csv") %>% mutate(language = "Ancient Greek subset 9")) %>%
+  bind_rows(read_csv("ud_ael-subset10-results.csv") %>% mutate(language = "Ancient Greek subset 10"))
+
+afrikaans <- read_csv("ud_afr-results.csv") %>%
+  mutate(language = "Afrikaans") %>%
+  bind_rows(read_csv("ud_afr-subset1-results.csv") %>% mutate(language = "Afrikaans subset 1")) %>%
+  bind_rows(read_csv("ud_afr-subset2-results.csv") %>% mutate(language = "Afrikaans subset 2")) %>%
+  bind_rows(read_csv("ud_afr-subset3-results.csv") %>% mutate(language = "Afrikaans subset 3")) %>%
+  bind_rows(read_csv("ud_afr-subset4-results.csv") %>% mutate(language = "Afrikaans subset 4")) %>%
+  bind_rows(read_csv("ud_afr-subset5-results.csv") %>% mutate(language = "Afrikaans subset 5")) %>%
+  bind_rows(read_csv("ud_afr-subset6-results.csv") %>% mutate(language = "Afrikaans subset 6")) %>%
+  bind_rows(read_csv("ud_afr-subset7-results.csv") %>% mutate(language = "Afrikaans subset 7")) %>%
+  bind_rows(read_csv("ud_afr-subset8-results.csv") %>% mutate(language = "Afrikaans subset 8")) %>%
+  bind_rows(read_csv("ud_afr-subset9-results.csv") %>% mutate(language = "Afrikaans subset 9")) %>%
+  bind_rows(read_csv("ud_afr-subset10-results.csv") %>% mutate(language = "Afrikaans subset 10"))
+
+akkadian <- read_csv("ud_akk-results.csv") %>%
+  mutate(language = "Akkadian")
+
+amharic <- read_csv("ud_amh-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Amharic") %>%
+  bind_rows(read_csv("ud_amh-subset1-results.csv") %>% mutate(language = "Amharic subset 1")) %>%
+  bind_rows(read_csv("ud_amh-subset2-results.csv") %>% mutate(language = "Amharic subset 2")) %>%
+  bind_rows(read_csv("ud_amh-subset3-results.csv") %>% mutate(language = "Amharic subset 3")) %>%
+  bind_rows(read_csv("ud_amh-subset4-results.csv") %>% mutate(language = "Amharic subset 4")) %>%
+  bind_rows(read_csv("ud_amh-subset5-results.csv") %>% mutate(language = "Amharic subset 5")) %>%
+  bind_rows(read_csv("ud_amh-subset6-results.csv") %>% mutate(language = "Amharic subset 6")) %>%
+  bind_rows(read_csv("ud_amh-subset7-results.csv") %>% mutate(language = "Amharic subset 7")) %>%
+  bind_rows(read_csv("ud_amh-subset8-results.csv") %>% mutate(I2 = as.double(I2),language = "Amharic subset 8")) %>%
+  bind_rows(read_csv("ud_amh-subset9-results.csv") %>% mutate(language = "Amharic subset 9")) %>%
+  bind_rows(read_csv("ud_amh-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Amharic subset 10"))
+
+arabic <- read_csv("ud_ara-results.csv") %>%
+  mutate(language = "Arabic") %>%
+  bind_rows(read_csv("ud_ara-subset1-results.csv") %>% mutate(language = "Arabic subset 1")) %>%
+  bind_rows(read_csv("ud_ara-subset2-results.csv") %>% mutate(language = "Arabic subset 2")) %>%
+  bind_rows(read_csv("ud_ara-subset3-results.csv") %>% mutate(language = "Arabic subset 3")) %>%
+  bind_rows(read_csv("ud_ara-subset4-results.csv") %>% mutate(language = "Arabic subset 4")) %>%
+  bind_rows(read_csv("ud_ara-subset5-results.csv") %>% mutate(language = "Arabic subset 5")) %>%
+  bind_rows(read_csv("ud_ara-subset6-results.csv") %>% mutate(language = "Arabic subset 6")) %>%
+  bind_rows(read_csv("ud_ara-subset7-results.csv") %>% mutate(language = "Arabic subset 7")) %>%
+  bind_rows(read_csv("ud_ara-subset8-results.csv") %>% mutate(language = "Arabic subset 8")) %>%
+  bind_rows(read_csv("ud_ara-subset9-results.csv") %>% mutate(language = "Arabic subset 9")) %>%
+  bind_rows(read_csv("ud_ara-subset10-results.csv") %>% mutate(language = "Arabic subset 10"))
+
+armenian <- read_csv("ud_arm-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Armenian") %>%
+  bind_rows(read_csv("ud_arm-subset1-results.csv") %>% mutate(language = "Armenian subset 1")) %>%
+  bind_rows(read_csv("ud_arm-subset2-results.csv") %>% mutate(language = "Armenian subset 2")) %>%
+  bind_rows(read_csv("ud_arm-subset3-results.csv") %>% mutate(language = "Armenian subset 3")) %>%
+  bind_rows(read_csv("ud_arm-subset4-results.csv") %>% mutate(language = "Armenian subset 4")) %>%
+  bind_rows(read_csv("ud_arm-subset5-results.csv") %>% mutate(language = "Armenian subset 5")) %>%
+  bind_rows(read_csv("ud_arm-subset6-results.csv") %>% mutate(language = "Armenian subset 6")) %>%
+  bind_rows(read_csv("ud_arm-subset7-results.csv") %>% mutate(language = "Armenian subset 7")) %>%
+  bind_rows(read_csv("ud_arm-subset8-results.csv") %>% mutate(language = "Armenian subset 8")) %>%
+  bind_rows(read_csv("ud_arm-subset9-results.csv") %>% mutate(language = "Armenian subset 9")) %>%
+  bind_rows(read_csv("ud_arm-subset10-results.csv") %>% mutate(language = "Armenian subset 10"))
+
+bambara <- read_csv("ud_bam-results.csv") %>%
+  mutate(language = "Bambara")
+
+bhojpuri <- read_csv("ud_bho-results.csv") %>%
+  mutate(language = "Bhojpuri")
+
+breton <- read_csv("ud_bre-results.csv") %>%
+  mutate(language = "Breton")
+
+belarusian <- read_csv("ud_bru-results.csv") %>%
+  mutate(language = "Belarusian")
+
+bulgarian <- read_csv("ud_bul-results.csv") %>%
+  mutate(language = "Bulgarian") %>%
+  bind_rows(read_csv("ud_bul-subset1-results.csv") %>% mutate(language = "Bulgarian subset 1")) %>%
+  bind_rows(read_csv("ud_bul-subset2-results.csv") %>% mutate(language = "Bulgarian subset 2")) %>%
+  bind_rows(read_csv("ud_bul-subset3-results.csv") %>% mutate(language = "Bulgarian subset 3")) %>%
+  bind_rows(read_csv("ud_bul-subset4-results.csv") %>% mutate(language = "Bulgarian subset 4")) %>%
+  bind_rows(read_csv("ud_bul-subset5-results.csv") %>% mutate(language = "Bulgarian subset 5")) %>%
+  bind_rows(read_csv("ud_bul-subset6-results.csv") %>% mutate(language = "Bulgarian subset 6")) %>%
+  bind_rows(read_csv("ud_bul-subset7-results.csv") %>% mutate(language = "Bulgarian subset 7")) %>%
+  bind_rows(read_csv("ud_bul-subset8-results.csv") %>% mutate(language = "Bulgarian subset 8")) %>%
+  bind_rows(read_csv("ud_bul-subset9-results.csv") %>% mutate(language = "Bulgarian subset 9")) %>%
+  bind_rows(read_csv("ud_bul-subset10-results.csv") %>% mutate(language = "Bulgarian subset 10"))
+
+buryat <- read_csv("ud_bur-results.csv") %>%
+  mutate(language = "Buryat")
+
+cantonese <- read_csv("ud_can-results.csv") %>%
+  mutate(language = "Cantonese")
+
+catalan <- read_csv("ud_cat-results.csv") %>%
+  mutate(language = "Catalan") %>%
+  bind_rows(read_csv("ud_cat-subset1-results.csv") %>% mutate(language = "Catalan subset 1")) %>%
+  bind_rows(read_csv("ud_cat-subset2-results.csv") %>% mutate(language = "Catalan subset 2")) %>%
+  bind_rows(read_csv("ud_cat-subset3-results.csv") %>% mutate(language = "Catalan subset 3")) %>%
+  bind_rows(read_csv("ud_cat-subset4-results.csv") %>% mutate(language = "Catalan subset 4")) %>%
+  bind_rows(read_csv("ud_cat-subset5-results.csv") %>% mutate(language = "Catalan subset 5")) %>%
+  bind_rows(read_csv("ud_cat-subset6-results.csv") %>% mutate(language = "Catalan subset 6")) %>%
+  bind_rows(read_csv("ud_cat-subset7-results.csv") %>% mutate(language = "Catalan subset 7")) %>%
+  bind_rows(read_csv("ud_cat-subset8-results.csv") %>% mutate(language = "Catalan subset 8")) %>%
+  bind_rows(read_csv("ud_cat-subset9-results.csv") %>% mutate(language = "Catalan subset 9")) %>%
+  bind_rows(read_csv("ud_cat-subset10-results.csv") %>% mutate(language = "Catalan subset 10"))
+
+classical_chinese <- read_csv("ud_cch-results.csv") %>%
+  mutate(language = "Classical Chinese") %>%
+  bind_rows(read_csv("ud_cch-subset1-results.csv") %>% mutate(language = "Classical Chinese subset 1")) %>%
+  bind_rows(read_csv("ud_cch-subset2-results.csv") %>% mutate(language = "Classical Chinese subset 2")) %>%
+  bind_rows(read_csv("ud_cch-subset3-results.csv") %>% mutate(language = "Classical Chinese subset 3")) %>%
+  bind_rows(read_csv("ud_cch-subset4-results.csv") %>% mutate(language = "Classical Chinese subset 4")) %>%
+  bind_rows(read_csv("ud_cch-subset5-results.csv") %>% mutate(language = "Classical Chinese subset 5")) %>%
+  bind_rows(read_csv("ud_cch-subset6-results.csv") %>% mutate(language = "Classical Chinese subset 6")) %>%
+  bind_rows(read_csv("ud_cch-subset7-results.csv") %>% mutate(language = "Classical Chinese subset 7")) %>%
+  bind_rows(read_csv("ud_cch-subset8-results.csv") %>% mutate(language = "Classical Chinese subset 8")) %>%
+  bind_rows(read_csv("ud_cch-subset9-results.csv") %>% mutate(language = "Classical Chinese subset 9")) %>%
+  bind_rows(read_csv("ud_cch-subset10-results.csv") %>% mutate(language = "Classical Chinese subset 10"))
+
+coptic <- read_csv("ud_cop-results.csv") %>%
+  mutate(language = "Coptic") %>%
+  bind_rows(read_csv("ud_cop-subset1-results.csv") %>% mutate(language = "Coptic subset 1")) %>%
+  bind_rows(read_csv("ud_cop-subset2-results.csv") %>% mutate(language = "Coptic subset 2")) %>%
+  bind_rows(read_csv("ud_cop-subset3-results.csv") %>% mutate(language = "Coptic subset 3")) %>%
+  bind_rows(read_csv("ud_cop-subset4-results.csv") %>% mutate(language = "Coptic subset 4")) %>%
+  bind_rows(read_csv("ud_cop-subset5-results.csv") %>% mutate(language = "Coptic subset 5")) %>%
+  bind_rows(read_csv("ud_cop-subset6-results.csv") %>% mutate(language = "Coptic subset 6")) %>%
+  bind_rows(read_csv("ud_cop-subset7-results.csv") %>% mutate(language = "Coptic subset 7")) %>%
+  bind_rows(read_csv("ud_cop-subset8-results.csv") %>% mutate(language = "Coptic subset 8")) %>%
+  bind_rows(read_csv("ud_cop-subset9-results.csv") %>% mutate(language = "Coptic subset 9")) %>%
+  bind_rows(read_csv("ud_cop-subset10-results.csv") %>% mutate(language = "Coptic subset 10"))
+
+croatian <- read_csv("ud_cro-results.csv") %>%
+  mutate(language = "Croatian") %>%
+  bind_rows(read_csv("ud_cro-subset1-results.csv") %>% mutate(language = "Croatian subset 1")) %>%
+  bind_rows(read_csv("ud_cro-subset2-results.csv") %>% mutate(language = "Croatian subset 2")) %>%
+  bind_rows(read_csv("ud_cro-subset3-results.csv") %>% mutate(language = "Croatian subset 3")) %>%
+  bind_rows(read_csv("ud_cro-subset4-results.csv") %>% mutate(language = "Croatian subset 4")) %>%
+  bind_rows(read_csv("ud_cro-subset5-results.csv") %>% mutate(language = "Croatian subset 5")) %>%
+  bind_rows(read_csv("ud_cro-subset6-results.csv") %>% mutate(language = "Croatian subset 6")) %>%
+  bind_rows(read_csv("ud_cro-subset7-results.csv") %>% mutate(language = "Croatian subset 7")) %>%
+  bind_rows(read_csv("ud_cro-subset8-results.csv") %>% mutate(language = "Croatian subset 8")) %>%
+  bind_rows(read_csv("ud_cro-subset9-results.csv") %>% mutate(language = "Croatian subset 9")) %>%
+  bind_rows(read_csv("ud_cro-subset10-results.csv") %>% mutate(language = "Croatian subset 10"))
+
+welsh <- read_csv("ud_cym-results.csv") %>%
+  mutate(language = "Welsh")
+
+czech <- read_csv("ud_cze-results.csv") %>%
+  mutate(language = "Czech") %>%
+  bind_rows(read_csv("ud_cze-subset1-results.csv") %>% mutate(language = "Czech subset 1")) %>%
+  bind_rows(read_csv("ud_cze-subset2-results.csv") %>% mutate(language = "Czech subset 2")) %>%
+  bind_rows(read_csv("ud_cze-subset3-results.csv") %>% mutate(language = "Czech subset 3")) %>%
+  bind_rows(read_csv("ud_cze-subset4-results.csv") %>% mutate(language = "Czech subset 4")) %>%
+  bind_rows(read_csv("ud_cze-subset5-results.csv") %>% mutate(language = "Czech subset 5")) %>%
+  bind_rows(read_csv("ud_cze-subset6-results.csv") %>% mutate(language = "Czech subset 6")) %>%
+  bind_rows(read_csv("ud_cze-subset7-results.csv") %>% mutate(language = "Czech subset 7")) %>%
+  bind_rows(read_csv("ud_cze-subset8-results.csv") %>% mutate(language = "Czech subset 8")) %>%
+  bind_rows(read_csv("ud_cze-subset9-results.csv") %>% mutate(language = "Czech subset 9")) %>%
+  bind_rows(read_csv("ud_cze-subset10-results.csv") %>% mutate(language = "Czech subset 10"))
+
+danish <- read_csv("ud_dan-results.csv") %>%
+  mutate(language = "Danish") %>%
+  bind_rows(read_csv("ud_dan-subset1-results.csv") %>% mutate(language = "Danish subset 1")) %>%
+  bind_rows(read_csv("ud_dan-subset2-results.csv") %>% mutate(language = "Danish subset 2")) %>%
+  bind_rows(read_csv("ud_dan-subset3-results.csv") %>% mutate(language = "Danish subset 3")) %>%
+  bind_rows(read_csv("ud_dan-subset4-results.csv") %>% mutate(language = "Danish subset 4")) %>%
+  bind_rows(read_csv("ud_dan-subset5-results.csv") %>% mutate(language = "Danish subset 5")) %>%
+  bind_rows(read_csv("ud_dan-subset6-results.csv") %>% mutate(language = "Danish subset 6")) %>%
+  bind_rows(read_csv("ud_dan-subset7-results.csv") %>% mutate(language = "Danish subset 7")) %>%
+  bind_rows(read_csv("ud_dan-subset8-results.csv") %>% mutate(language = "Danish subset 8")) %>%
+  bind_rows(read_csv("ud_dan-subset9-results.csv") %>% mutate(language = "Danish subset 9")) %>%
+  bind_rows(read_csv("ud_dan-subset10-results.csv") %>% mutate(language = "Danish subset 10"))
+
+german <- read_csv("ud_deu-results.csv") %>%
+  mutate(language = "German") %>%
+  bind_rows(read_csv("ud_deu-subset1-results.csv") %>% mutate(language = "German subset 1")) %>%
+  bind_rows(read_csv("ud_deu-subset2-results.csv") %>% mutate(language = "German subset 2")) %>%
+  bind_rows(read_csv("ud_deu-subset3-results.csv") %>% mutate(language = "German subset 3")) %>%
+  bind_rows(read_csv("ud_deu-subset4-results.csv") %>% mutate(language = "German subset 4")) %>%
+  bind_rows(read_csv("ud_deu-subset5-results.csv") %>% mutate(language = "German subset 5")) %>%
+  bind_rows(read_csv("ud_deu-subset6-results.csv") %>% mutate(language = "German subset 6")) %>%
+  bind_rows(read_csv("ud_deu-subset7-results.csv") %>% mutate(language = "German subset 7")) %>%
+  bind_rows(read_csv("ud_deu-subset8-results.csv") %>% mutate(language = "German subset 8")) %>%
+  bind_rows(read_csv("ud_deu-subset9-results.csv") %>% mutate(language = "German subset 9")) %>%
+  bind_rows(read_csv("ud_deu-subset10-results.csv") %>% mutate(language = "German subset 10"))
+
+greek <- read_csv("ud_ell-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Modern Greek") %>%
+  bind_rows(read_csv("ud_ell-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 1")) %>%
+  bind_rows(read_csv("ud_ell-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 2")) %>%
+  bind_rows(read_csv("ud_ell-subset3-results.csv") %>% mutate(language = "Greek subset 3")) %>%
+  bind_rows(read_csv("ud_ell-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 4")) %>%
+  bind_rows(read_csv("ud_ell-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 5")) %>%
+  bind_rows(read_csv("ud_ell-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 6")) %>%
+  bind_rows(read_csv("ud_ell-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 7")) %>%
+  bind_rows(read_csv("ud_ell-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 8")) %>%
+  bind_rows(read_csv("ud_ell-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 9")) %>%
+  bind_rows(read_csv("ud_ell-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Modern Greek subset 10"))
+
+english <- read_csv("ud_eng-results.csv") %>%
+  mutate(language = "English") %>%
+  bind_rows(read_csv("ud_eng-subset1-results.csv") %>% mutate(language = "English subset 1")) %>%
+  bind_rows(read_csv("ud_eng-subset2-results.csv") %>% mutate(language = "English subset 2")) %>%
+  bind_rows(read_csv("ud_eng-subset3-results.csv") %>% mutate(language = "English subset 3")) %>%
+  bind_rows(read_csv("ud_eng-subset4-results.csv") %>% mutate(language = "English subset 4")) %>%
+  bind_rows(read_csv("ud_eng-subset5-results.csv") %>% mutate(language = "English subset 5")) %>%
+  bind_rows(read_csv("ud_eng-subset6-results.csv") %>% mutate(language = "English subset 6")) %>%
+  bind_rows(read_csv("ud_eng-subset7-results.csv") %>% mutate(language = "English subset 7")) %>%
+  bind_rows(read_csv("ud_eng-subset8-results.csv") %>% mutate(language = "English subset 8")) %>%
+  bind_rows(read_csv("ud_eng-subset9-results.csv") %>% mutate(language = "English subset 9")) %>%
+  bind_rows(read_csv("ud_eng-subset10-results.csv") %>% mutate(language = "English subset 10"))
+
+erzya <- read_csv("ud_erz-results.csv") %>%
+  mutate(language = "Erzya")
+
+estonian <- read_csv("ud_est-results.csv") %>%
+  mutate(language = "Estonian") %>%
+  bind_rows(read_csv("ud_est-subset1-results.csv") %>% mutate(language = "Estonian subset 1")) %>%
+  bind_rows(read_csv("ud_est-subset2-results.csv") %>% mutate(language = "Estonian subset 2")) %>%
+  bind_rows(read_csv("ud_est-subset3-results.csv") %>% mutate(language = "Estonian subset 3")) %>%
+  bind_rows(read_csv("ud_est-subset4-results.csv") %>% mutate(language = "Estonian subset 4")) %>%
+  bind_rows(read_csv("ud_est-subset5-results.csv") %>% mutate(language = "Estonian subset 5")) %>%
+  bind_rows(read_csv("ud_est-subset6-results.csv") %>% mutate(language = "Estonian subset 6")) %>%
+  bind_rows(read_csv("ud_est-subset7-results.csv") %>% mutate(language = "Estonian subset 7")) %>%
+  bind_rows(read_csv("ud_est-subset8-results.csv") %>% mutate(language = "Estonian subset 8")) %>%
+  bind_rows(read_csv("ud_est-subset9-results.csv") %>% mutate(language = "Estonian subset 9")) %>%
+  bind_rows(read_csv("ud_est-subset10-results.csv") %>% mutate(language = "Estonian subset 10"))
+
+basque <- read_csv("ud_eus-results.csv") %>%
+  mutate(language = "Basque") %>%
+  bind_rows(read_csv("ud_eus-subset1-results.csv") %>% mutate(language = "Basque subset 1")) %>%
+  bind_rows(read_csv("ud_eus-subset2-results.csv") %>% mutate(language = "Basque subset 2")) %>%
+  bind_rows(read_csv("ud_eus-subset3-results.csv") %>% mutate(language = "Basque subset 3")) %>%
+  bind_rows(read_csv("ud_eus-subset4-results.csv") %>% mutate(language = "Basque subset 4")) %>%
+  bind_rows(read_csv("ud_eus-subset5-results.csv") %>% mutate(language = "Basque subset 5")) %>%
+  bind_rows(read_csv("ud_eus-subset6-results.csv") %>% mutate(language = "Basque subset 6")) %>%
+  bind_rows(read_csv("ud_eus-subset7-results.csv") %>% mutate(language = "Basque subset 7")) %>%
+  bind_rows(read_csv("ud_eus-subset8-results.csv") %>% mutate(language = "Basque subset 8")) %>%
+  bind_rows(read_csv("ud_eus-subset9-results.csv") %>% mutate(language = "Basque subset 9")) %>%
+  bind_rows(read_csv("ud_eus-subset10-results.csv") %>% mutate(language = "Basque subset 10"))
+
+farsi <- read_csv("ud_far-results.csv") %>%
+  mutate(language = "Farsi")
+
+finnish <- read_csv("ud_fin-results.csv") %>%
+  mutate(language = "Finnish") %>%
+  bind_rows(read_csv("ud_fin-subset1-results.csv") %>% mutate(language = "Finnish subset 1")) %>%
+  bind_rows(read_csv("ud_fin-subset2-results.csv") %>% mutate(language = "Finnish subset 2")) %>%
+  bind_rows(read_csv("ud_fin-subset3-results.csv") %>% mutate(language = "Finnish subset 3")) %>%
+  bind_rows(read_csv("ud_fin-subset4-results.csv") %>% mutate(language = "Finnish subset 4")) %>%
+  bind_rows(read_csv("ud_fin-subset5-results.csv") %>% mutate(language = "Finnish subset 5")) %>%
+  bind_rows(read_csv("ud_fin-subset6-results.csv") %>% mutate(language = "Finnish subset 6")) %>%
+  bind_rows(read_csv("ud_fin-subset7-results.csv") %>% mutate(language = "Finnish subset 7")) %>%
+  bind_rows(read_csv("ud_fin-subset8-results.csv") %>% mutate(language = "Finnish subset 8")) %>%
+  bind_rows(read_csv("ud_fin-subset9-results.csv") %>% mutate(language = "Finnish subset 9")) %>%
+  bind_rows(read_csv("ud_fin-subset10-results.csv") %>% mutate(language = "Finnish subset 10"))
+
+french <- read_csv("ud_fre-results.csv") %>%
+  mutate(language = "French") %>%
+  bind_rows(read_csv("ud_fre-subset1-results.csv") %>% mutate(language = "French subset 1")) %>%
+  bind_rows(read_csv("ud_fre-subset2-results.csv") %>% mutate(language = "French subset 2")) %>%
+  bind_rows(read_csv("ud_fre-subset3-results.csv") %>% mutate(language = "French subset 3")) %>%
+  bind_rows(read_csv("ud_fre-subset4-results.csv") %>% mutate(language = "French subset 4")) %>%
+  bind_rows(read_csv("ud_fre-subset5-results.csv") %>% mutate(language = "French subset 5")) %>%
+  bind_rows(read_csv("ud_fre-subset6-results.csv") %>% mutate(language = "French subset 6")) %>%
+  bind_rows(read_csv("ud_fre-subset7-results.csv") %>% mutate(language = "French subset 7")) %>%
+  bind_rows(read_csv("ud_fre-subset8-results.csv") %>% mutate(language = "French subset 8")) %>%
+  bind_rows(read_csv("ud_fre-subset9-results.csv") %>% mutate(language = "French subset 9")) %>%
+  bind_rows(read_csv("ud_fre-subset10-results.csv") %>% mutate(language = "French subset 10"))
+
+faroese <- read_csv("ud_fro-results.csv") %>%
+  mutate(language = "Faroese")
+
+irish <- read_csv("ud_gae-results.csv") %>%
+  mutate(language = "Irish")
+
+scottish_gaelic <- read_csv("ud_gai-results.csv") %>%
+  mutate(language = "Scottish Gaelic")
+
+galician <- read_csv("ud_gal-results.csv") %>%
+  mutate(language = "Galician") %>%
+  bind_rows(read_csv("ud_gal-subset1-results.csv") %>% mutate(language = "Galician subset 1")) %>%
+  bind_rows(read_csv("ud_gal-subset2-results.csv") %>% mutate(language = "Galician subset 2")) %>%
+  bind_rows(read_csv("ud_gal-subset3-results.csv") %>% mutate(language = "Galician subset 3")) %>%
+  bind_rows(read_csv("ud_gal-subset4-results.csv") %>% mutate(language = "Galician subset 4")) %>%
+  bind_rows(read_csv("ud_gal-subset5-results.csv") %>% mutate(language = "Galician subset 5")) %>%
+  bind_rows(read_csv("ud_gal-subset6-results.csv") %>% mutate(language = "Galician subset 6")) %>%
+  bind_rows(read_csv("ud_gal-subset7-results.csv") %>% mutate(language = "Galician subset 7")) %>%
+  bind_rows(read_csv("ud_gal-subset8-results.csv") %>% mutate(language = "Galician subset 8")) %>%
+  bind_rows(read_csv("ud_gal-subset9-results.csv") %>% mutate(language = "Galician subset 9")) %>%
+  bind_rows(read_csv("ud_gal-subset10-results.csv") %>% mutate(language = "Galician subset 10"))
+
+gothic <- read_csv("ud_got-results.csv") %>%
+  mutate(language = "Gothic") %>%
+  bind_rows(read_csv("ud_got-subset1-results.csv") %>% mutate(language = "Gothic subset 1")) %>%
+  bind_rows(read_csv("ud_got-subset2-results.csv") %>% mutate(language = "Gothic subset 2")) %>%
+  bind_rows(read_csv("ud_got-subset3-results.csv") %>% mutate(language = "Gothic subset 3")) %>%
+  bind_rows(read_csv("ud_got-subset4-results.csv") %>% mutate(language = "Gothic subset 4")) %>%
+  bind_rows(read_csv("ud_got-subset5-results.csv") %>% mutate(language = "Gothic subset 5")) %>%
+  bind_rows(read_csv("ud_got-subset6-results.csv") %>% mutate(language = "Gothic subset 6")) %>%
+  bind_rows(read_csv("ud_got-subset7-results.csv") %>% mutate(language = "Gothic subset 7")) %>%
+  bind_rows(read_csv("ud_got-subset8-results.csv") %>% mutate(language = "Gothic subset 8")) %>%
+  bind_rows(read_csv("ud_got-subset9-results.csv") %>% mutate(language = "Gothic subset 9")) %>%
+  bind_rows(read_csv("ud_got-subset10-results.csv") %>% mutate(language = "Gothic subset 10"))
+
+hebrew <- read_csv("ud_heb-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Hebrew") %>%
+  bind_rows(read_csv("ud_heb-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 1")) %>%
+  bind_rows(read_csv("ud_heb-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 2")) %>%
+  bind_rows(read_csv("ud_heb-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 3")) %>%
+  bind_rows(read_csv("ud_heb-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 4")) %>%
+  bind_rows(read_csv("ud_heb-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 5")) %>%
+  bind_rows(read_csv("ud_heb-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 6")) %>%
+  bind_rows(read_csv("ud_heb-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 7")) %>%
+  bind_rows(read_csv("ud_heb-subset8-results.csv") %>% mutate(language = "Hebrew subset 8")) %>%
+  bind_rows(read_csv("ud_heb-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 9")) %>%
+  bind_rows(read_csv("ud_heb-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Hebrew subset 10"))
+
+hindi <- read_csv("ud_hin-results.csv") %>%
+  mutate(language = "Hindi") %>%
+  bind_rows(read_csv("ud_hin-subset1-results.csv") %>% mutate(language = "Hindi subset 1")) %>%
+  bind_rows(read_csv("ud_hin-subset2-results.csv") %>% mutate(language = "Hindi subset 2")) %>%
+  bind_rows(read_csv("ud_hin-subset3-results.csv") %>% mutate(language = "Hindi subset 3")) %>%
+  bind_rows(read_csv("ud_hin-subset4-results.csv") %>% mutate(language = "Hindi subset 4")) %>%
+  bind_rows(read_csv("ud_hin-subset5-results.csv") %>% mutate(language = "Hindi subset 5")) %>%
+  bind_rows(read_csv("ud_hin-subset6-results.csv") %>% mutate(language = "Hindi subset 6")) %>%
+  bind_rows(read_csv("ud_hin-subset7-results.csv") %>% mutate(language = "Hindi subset 7")) %>%
+  bind_rows(read_csv("ud_hin-subset8-results.csv") %>% mutate(language = "Hindi subset 8")) %>%
+  bind_rows(read_csv("ud_hin-subset9-results.csv") %>% mutate(language = "Hindi subset 9")) %>%
+  bind_rows(read_csv("ud_hin-subset10-results.csv") %>% mutate(language = "Hindi subset 10"))
+
+hungarian <- read_csv("ud_hun-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Hungarian") %>%
+  bind_rows(read_csv("ud_hun-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 1")) %>%
+  bind_rows(read_csv("ud_hun-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 2")) %>%
+  bind_rows(read_csv("ud_hun-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 3")) %>%
+  bind_rows(read_csv("ud_hun-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 4")) %>%
+  bind_rows(read_csv("ud_hun-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 5")) %>%
+  bind_rows(read_csv("ud_hun-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 6")) %>%
+  bind_rows(read_csv("ud_hun-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 7")) %>%
+  bind_rows(read_csv("ud_hun-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 8")) %>%
+  bind_rows(read_csv("ud_hun-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 9")) %>%
+  bind_rows(read_csv("ud_hun-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Hungarian subset 10"))
+
+
+indonesian <- read_csv("ud_ind-results.csv") %>%
+  mutate(language = "Indonesian") %>%
+  bind_rows(read_csv("ud_ind-subset1-results.csv") %>% mutate(language = "Indonesian subset 1")) %>%
+  bind_rows(read_csv("ud_ind-subset2-results.csv") %>% mutate(language = "Indonesian subset 2")) %>%
+  bind_rows(read_csv("ud_ind-subset3-results.csv") %>% mutate(language = "Indonesian subset 3")) %>%
+  bind_rows(read_csv("ud_ind-subset4-results.csv") %>% mutate(language = "Indonesian subset 4")) %>%
+  bind_rows(read_csv("ud_ind-subset5-results.csv") %>% mutate(language = "Indonesian subset 5")) %>%
+  bind_rows(read_csv("ud_ind-subset6-results.csv") %>% mutate(language = "Indonesian subset 6")) %>%
+  bind_rows(read_csv("ud_ind-subset7-results.csv") %>% mutate(language = "Indonesian subset 7")) %>%
+  bind_rows(read_csv("ud_ind-subset8-results.csv") %>% mutate(language = "Indonesian subset 8")) %>%
+  bind_rows(read_csv("ud_ind-subset9-results.csv") %>% mutate(language = "Indonesian subset 9")) %>%
+  bind_rows(read_csv("ud_ind-subset10-results.csv") %>% mutate(language = "Indonesian subset 10"))
+
+italian <- read_csv("ud_ita-results.csv") %>%
+  mutate(language = "Italian") %>%
+  bind_rows(read_csv("ud_ita-subset1-results.csv") %>% mutate(language = "Italian subset 1")) %>%
+  bind_rows(read_csv("ud_ita-subset2-results.csv") %>% mutate(language = "Italian subset 2")) %>%
+  bind_rows(read_csv("ud_ita-subset3-results.csv") %>% mutate(language = "Italian subset 3")) %>%
+  bind_rows(read_csv("ud_ita-subset4-results.csv") %>% mutate(language = "Italian subset 4")) %>%
+  bind_rows(read_csv("ud_ita-subset5-results.csv") %>% mutate(language = "Italian subset 5")) %>%
+  bind_rows(read_csv("ud_ita-subset6-results.csv") %>% mutate(language = "Italian subset 6")) %>%
+  bind_rows(read_csv("ud_ita-subset7-results.csv") %>% mutate(language = "Italian subset 7")) %>%
+  bind_rows(read_csv("ud_ita-subset8-results.csv") %>% mutate(language = "Italian subset 8")) %>%
+  bind_rows(read_csv("ud_ita-subset9-results.csv") %>% mutate(language = "Italian subset 9")) %>%
+  bind_rows(read_csv("ud_ita-subset10-results.csv") %>% mutate(language = "Italian subset 10"))
+
+japanese <- read_csv("ud_ja-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Japanese") %>%
+  bind_rows(read_csv("ud_ja-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 1")) %>%
+  bind_rows(read_csv("ud_ja-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 2")) %>%
+  bind_rows(read_csv("ud_ja-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 3")) %>%
+  bind_rows(read_csv("ud_ja-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 4")) %>%
+  bind_rows(read_csv("ud_ja-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 5")) %>%
+  bind_rows(read_csv("ud_ja-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 6")) %>%
+  bind_rows(read_csv("ud_ja-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 7")) %>%
+  bind_rows(read_csv("ud_ja-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 8")) %>%
+  bind_rows(read_csv("ud_ja-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 9")) %>%
+  bind_rows(read_csv("ud_ja-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Japanese subset 10"))
+
+karelian <- read_csv("ud_kar-results.csv") %>%
+  mutate(language = "Karelian")
+
+kazakh <- read_csv("ud_kaz-results.csv") %>%
+  mutate(language = "Kazakh")
+
+korean <- read_csv("ud_kor-results.csv") %>%
+  mutate(language = "Korean") %>%
+  bind_rows(read_csv("ud_kor-subset1-results.csv") %>% mutate(language = "Korean subset 1")) %>%
+  bind_rows(read_csv("ud_kor-subset2-results.csv") %>% mutate(language = "Korean subset 2")) %>%
+  bind_rows(read_csv("ud_kor-subset3-results.csv") %>% mutate(language = "Korean subset 3")) %>%
+  bind_rows(read_csv("ud_kor-subset4-results.csv") %>% mutate(language = "Korean subset 4")) %>%
+  bind_rows(read_csv("ud_kor-subset5-results.csv") %>% mutate(language = "Korean subset 5")) %>%
+  bind_rows(read_csv("ud_kor-subset6-results.csv") %>% mutate(language = "Korean subset 6")) %>%
+  bind_rows(read_csv("ud_kor-subset7-results.csv") %>% mutate(language = "Korean subset 7")) %>%
+  bind_rows(read_csv("ud_kor-subset8-results.csv") %>% mutate(language = "Korean subset 8")) %>%
+  bind_rows(read_csv("ud_kor-subset9-results.csv") %>% mutate(language = "Korean subset 9")) %>%
+  bind_rows(read_csv("ud_kor-subset10-results.csv") %>% mutate(language = "Korean subset 10"))
+
+komi_permyak <- read_csv("ud_kpe-results.csv") %>%
+  mutate(language = "Komi Permyak")
+
+kurmanji <- read_csv("ud_kur-results.csv") %>%
+  mutate(language = "Kurmanji")
+
+komi_zyrian <- read_csv("ud_kzy-results.csv") %>%
+  mutate(language = "Komi Zyrian")
+
+latin <- read_csv("ud_lat-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Latin") %>%
+  bind_rows(read_csv("ud_lat-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 1")) %>%
+  bind_rows(read_csv("ud_lat-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 2")) %>%
+  bind_rows(read_csv("ud_lat-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 3")) %>%
+  bind_rows(read_csv("ud_lat-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 4")) %>%
+  bind_rows(read_csv("ud_lat-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 5")) %>%
+  bind_rows(read_csv("ud_lat-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 6")) %>%
+  bind_rows(read_csv("ud_lat-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 7")) %>%
+  bind_rows(read_csv("ud_lat-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 8")) %>%
+  bind_rows(read_csv("ud_lat-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 9")) %>%
+  bind_rows(read_csv("ud_lat-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Latin subset 10"))
+
+lithuanian <- read_csv("ud_lit-results.csv") %>%
+  mutate(language = "Lithuanian") %>%
+  bind_rows(read_csv("ud_lit-subset1-results.csv") %>% mutate(language = "Lithuanian subset 1")) %>%
+  bind_rows(read_csv("ud_lit-subset2-results.csv") %>% mutate(language = "Lithuanian subset 2")) %>%
+  bind_rows(read_csv("ud_lit-subset3-results.csv") %>% mutate(language = "Lithuanian subset 3")) %>%
+  bind_rows(read_csv("ud_lit-subset4-results.csv") %>% mutate(language = "Lithuanian subset 4")) %>%
+  bind_rows(read_csv("ud_lit-subset5-results.csv") %>% mutate(language = "Lithuanian subset 5")) %>%
+  bind_rows(read_csv("ud_lit-subset6-results.csv") %>% mutate(language = "Lithuanian subset 6")) %>%
+  bind_rows(read_csv("ud_lit-subset7-results.csv") %>% mutate(language = "Lithuanian subset 7")) %>%
+  bind_rows(read_csv("ud_lit-subset8-results.csv") %>% mutate(language = "Lithuanian subset 8")) %>%
+  bind_rows(read_csv("ud_lit-subset9-results.csv") %>% mutate(language = "Lithuanian subset 9")) %>%
+  bind_rows(read_csv("ud_lit-subset10-results.csv") %>% mutate(language = "Lithuanian subset 10"))
+
+livvi <- read_csv("ud_liv-results.csv") %>%
+  mutate(language = "Livvi")
+
+latvian <- read_csv("ud_ltv-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Latvian") %>%
+  bind_rows(read_csv("ud_ltv-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 1")) %>%
+  bind_rows(read_csv("ud_ltv-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 2")) %>%
+  bind_rows(read_csv("ud_ltv-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 3")) %>%
+  bind_rows(read_csv("ud_ltv-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 4")) %>%
+  bind_rows(read_csv("ud_ltv-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 5")) %>%
+  bind_rows(read_csv("ud_ltv-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 6")) %>%
+  bind_rows(read_csv("ud_ltv-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 7")) %>%
+  bind_rows(read_csv("ud_ltv-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 8")) %>%
+  bind_rows(read_csv("ud_ltv-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 9")) %>%
+  bind_rows(read_csv("ud_ltv-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Latvian subset 10"))
+
+maltese <- read_csv("ud_mal-results.csv") %>%
+  mutate(language = "Maltese")
+
+marathi <- read_csv("ud_mar-results.csv") %>%
+  mutate(language = "Marathi")
+
+mbya_guarani <- read_csv("ud_mgu-results.csv") %>%
+  mutate(language = "Mbya Guarani")
+
+moksha <- read_csv("ud_mok-results.csv") %>%
+  mutate(language = "Moksha")
+
+dutch <- read_csv("ud_ned-results.csv") %>%
+  mutate(language = "Dutch") %>%
+  bind_rows(read_csv("ud_ned-subset1-results.csv") %>% mutate(language = "Dutch subset 1")) %>%
+  bind_rows(read_csv("ud_ned-subset2-results.csv") %>% mutate(language = "Dutch subset 2")) %>%
+  bind_rows(read_csv("ud_ned-subset3-results.csv") %>% mutate(language = "Dutch subset 3")) %>%
+  bind_rows(read_csv("ud_ned-subset4-results.csv") %>% mutate(language = "Dutch subset 4")) %>%
+  bind_rows(read_csv("ud_ned-subset5-results.csv") %>% mutate(language = "Dutch subset 5")) %>%
+  bind_rows(read_csv("ud_ned-subset6-results.csv") %>% mutate(language = "Dutch subset 6")) %>%
+  bind_rows(read_csv("ud_ned-subset7-results.csv") %>% mutate(language = "Dutch subset 7")) %>%
+  bind_rows(read_csv("ud_ned-subset8-results.csv") %>% mutate(language = "Dutch subset 8")) %>%
+  bind_rows(read_csv("ud_ned-subset9-results.csv") %>% mutate(language = "Dutch subset 9")) %>%
+  bind_rows(read_csv("ud_ned-subset10-results.csv") %>% mutate(language = "Dutch subset 10"))
+
+norwegian <- read_csv("ud_nor-results.csv") %>%
+  mutate(language = "Norwegian") %>%
+  bind_rows(read_csv("ud_nor-subset1-results.csv") %>% mutate(language = "Norwegian subset 1")) %>%
+  bind_rows(read_csv("ud_nor-subset2-results.csv") %>% mutate(language = "Norwegian subset 2")) %>%
+  bind_rows(read_csv("ud_nor-subset3-results.csv") %>% mutate(language = "Norwegian subset 3")) %>%
+  bind_rows(read_csv("ud_nor-subset4-results.csv") %>% mutate(language = "Norwegian subset 4")) %>%
+  bind_rows(read_csv("ud_nor-subset5-results.csv") %>% mutate(language = "Norwegian subset 5")) %>%
+  bind_rows(read_csv("ud_nor-subset6-results.csv") %>% mutate(language = "Norwegian subset 6")) %>%
+  bind_rows(read_csv("ud_nor-subset7-results.csv") %>% mutate(language = "Norwegian subset 7")) %>%
+  bind_rows(read_csv("ud_nor-subset8-results.csv") %>% mutate(language = "Norwegian subset 8")) %>%
+  bind_rows(read_csv("ud_nor-subset9-results.csv") %>% mutate(language = "Norwegian subset 9")) %>%
+  bind_rows(read_csv("ud_nor-subset10-results.csv") %>% mutate(language = "Norwegian subset 10"))
+
+nigerian_pidgin <- read_csv("ud_npe-results.csv") %>%
+  mutate(language = "Nigerian Pidgin")
+
+north_sami <- read_csv("ud_nsa-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "North Sami") %>%
+  bind_rows(read_csv("ud_nsa-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 1")) %>%
+  bind_rows(read_csv("ud_nsa-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 2")) %>%
+  bind_rows(read_csv("ud_nsa-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 3")) %>%
+  bind_rows(read_csv("ud_nsa-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 4")) %>%
+  bind_rows(read_csv("ud_nsa-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 5")) %>%
+  bind_rows(read_csv("ud_nsa-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 6")) %>%
+  bind_rows(read_csv("ud_nsa-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 7")) %>%
+  bind_rows(read_csv("ud_nsa-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 8")) %>%
+  bind_rows(read_csv("ud_nsa-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 9")) %>%
+  bind_rows(read_csv("ud_nsa-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "North Sami subset 10"))
+
+old_church_slavonic <- read_csv("ud_ocs-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Old Church Slavonic") %>%
+  bind_rows(read_csv("ud_ocs-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 1")) %>%
+  bind_rows(read_csv("ud_ocs-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 2")) %>%
+  bind_rows(read_csv("ud_ocs-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 3")) %>%
+  bind_rows(read_csv("ud_ocs-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 4")) %>%
+  bind_rows(read_csv("ud_ocs-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 5")) %>%
+  bind_rows(read_csv("ud_ocs-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 6")) %>%
+  bind_rows(read_csv("ud_ocs-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 7")) %>%
+  bind_rows(read_csv("ud_ocs-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 8")) %>%
+  bind_rows(read_csv("ud_ocs-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 9")) %>%
+  bind_rows(read_csv("ud_ocs-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Old Church Slavonic subset 10"))
+
+old_french <- read_csv("ud_ofr-results.csv") %>%
+  mutate(language = "Old French") %>%
+  bind_rows(read_csv("ud_ofr-subset1-results.csv") %>% mutate(language = "Old French subset 1")) %>%
+  bind_rows(read_csv("ud_ofr-subset2-results.csv") %>% mutate(language = "Old French subset 2")) %>%
+  bind_rows(read_csv("ud_ofr-subset3-results.csv") %>% mutate(language = "Old French subset 3")) %>%
+  bind_rows(read_csv("ud_ofr-subset4-results.csv") %>% mutate(language = "Old French subset 4")) %>%
+  bind_rows(read_csv("ud_ofr-subset5-results.csv") %>% mutate(language = "Old French subset 5")) %>%
+  bind_rows(read_csv("ud_ofr-subset6-results.csv") %>% mutate(language = "Old French subset 6")) %>%
+  bind_rows(read_csv("ud_ofr-subset7-results.csv") %>% mutate(language = "Old French subset 7")) %>%
+  bind_rows(read_csv("ud_ofr-subset8-results.csv") %>% mutate(language = "Old French subset 8")) %>%
+  bind_rows(read_csv("ud_ofr-subset9-results.csv") %>% mutate(language = "Old French subset 9")) %>%
+  bind_rows(read_csv("ud_ofr-subset10-results.csv") %>% mutate(language = "Old French subset 10"))
+
+old_russian <- read_csv("ud_oru-results.csv") %>%
+  mutate(language = "Old Russian") %>%
+  bind_rows(read_csv("ud_oru-subset1-results.csv") %>% mutate(language = "Old Russian subset 1")) %>%
+  bind_rows(read_csv("ud_oru-subset2-results.csv") %>% mutate(language = "Old Russian subset 2")) %>%
+  bind_rows(read_csv("ud_oru-subset3-results.csv") %>% mutate(language = "Old Russian subset 3")) %>%
+  bind_rows(read_csv("ud_oru-subset4-results.csv") %>% mutate(language = "Old Russian subset 4")) %>%
+  bind_rows(read_csv("ud_oru-subset5-results.csv") %>% mutate(language = "Old Russian subset 5")) %>%
+  bind_rows(read_csv("ud_oru-subset6-results.csv") %>% mutate(language = "Old Russian subset 6")) %>%
+  bind_rows(read_csv("ud_oru-subset7-results.csv") %>% mutate(language = "Old Russian subset 7")) %>%
+  bind_rows(read_csv("ud_oru-subset8-results.csv") %>% mutate(language = "Old Russian subset 8")) %>%
+  bind_rows(read_csv("ud_oru-subset9-results.csv") %>% mutate(language = "Old Russian subset 9")) %>%
+  bind_rows(read_csv("ud_oru-subset10-results.csv") %>% mutate(language = "Old Russian subset 10"))
+
+polish <- read_csv("ud_pol-results.csv") %>%
+  mutate(language = "Polish") %>%
+  bind_rows(read_csv("ud_pol-subset1-results.csv") %>% mutate(language = "Polish subset 1")) %>%
+  bind_rows(read_csv("ud_pol-subset2-results.csv") %>% mutate(language = "Polish subset 2")) %>%
+  bind_rows(read_csv("ud_pol-subset3-results.csv") %>% mutate(language = "Polish subset 3")) %>%
+  bind_rows(read_csv("ud_pol-subset4-results.csv") %>% mutate(language = "Polish subset 4")) %>%
+  bind_rows(read_csv("ud_pol-subset5-results.csv") %>% mutate(language = "Polish subset 5")) %>%
+  bind_rows(read_csv("ud_pol-subset6-results.csv") %>% mutate(language = "Polish subset 6")) %>%
+  bind_rows(read_csv("ud_pol-subset7-results.csv") %>% mutate(language = "Polish subset 7")) %>%
+  bind_rows(read_csv("ud_pol-subset8-results.csv") %>% mutate(language = "Polish subset 8")) %>%
+  bind_rows(read_csv("ud_pol-subset9-results.csv") %>% mutate(language = "Polish subset 9")) %>%
+  bind_rows(read_csv("ud_pol-subset10-results.csv") %>% mutate(language = "Polish subset 10"))
+
+portuguese <- read_csv("ud_por-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Portuguese") %>%
+  bind_rows(read_csv("ud_por-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 1")) %>%
+  bind_rows(read_csv("ud_por-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 2")) %>%
+  bind_rows(read_csv("ud_por-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 3")) %>%
+  bind_rows(read_csv("ud_por-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 4")) %>%
+  bind_rows(read_csv("ud_por-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 5")) %>%
+  bind_rows(read_csv("ud_por-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 6")) %>%
+  bind_rows(read_csv("ud_por-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 7")) %>%
+  bind_rows(read_csv("ud_por-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 8")) %>%
+  bind_rows(read_csv("ud_por-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 9")) %>%
+  bind_rows(read_csv("ud_por-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Portuguese subset 10"))
+
+romanian <- read_csv("ud_rom-results.csv") %>%
+  mutate(language = "Romanian") %>%
+  bind_rows(read_csv("ud_rom-subset1-results.csv") %>% mutate(language = "Romanian subset 1")) %>%
+  bind_rows(read_csv("ud_rom-subset2-results.csv") %>% mutate(language = "Romanian subset 2")) %>%
+  bind_rows(read_csv("ud_rom-subset3-results.csv") %>% mutate(language = "Romanian subset 3")) %>%
+  bind_rows(read_csv("ud_rom-subset4-results.csv") %>% mutate(language = "Romanian subset 4")) %>%
+  bind_rows(read_csv("ud_rom-subset5-results.csv") %>% mutate(language = "Romanian subset 5")) %>%
+  bind_rows(read_csv("ud_rom-subset6-results.csv") %>% mutate(language = "Romanian subset 6")) %>%
+  bind_rows(read_csv("ud_rom-subset7-results.csv") %>% mutate(language = "Romanian subset 7")) %>%
+  bind_rows(read_csv("ud_rom-subset8-results.csv") %>% mutate(language = "Romanian subset 8")) %>%
+  bind_rows(read_csv("ud_rom-subset9-results.csv") %>% mutate(language = "Romanian subset 9")) %>%
+  bind_rows(read_csv("ud_rom-subset10-results.csv") %>% mutate(language = "Romanian subset 10"))
+
+russian <- read_csv("ud_rus-results.csv") %>%
+  mutate(language = "Russian") %>%
+  bind_rows(read_csv("ud_rus-subset1-results.csv") %>% mutate(language = "Russian subset 1")) %>%
+  bind_rows(read_csv("ud_rus-subset2-results.csv") %>% mutate(language = "Russian subset 2")) %>%
+  bind_rows(read_csv("ud_rus-subset3-results.csv") %>% mutate(language = "Russian subset 3")) %>%
+  bind_rows(read_csv("ud_rus-subset4-results.csv") %>% mutate(language = "Russian subset 4")) %>%
+  bind_rows(read_csv("ud_rus-subset5-results.csv") %>% mutate(language = "Russian subset 5")) %>%
+  bind_rows(read_csv("ud_rus-subset6-results.csv") %>% mutate(language = "Russian subset 6")) %>%
+  bind_rows(read_csv("ud_rus-subset7-results.csv") %>% mutate(language = "Russian subset 7")) %>%
+  bind_rows(read_csv("ud_rus-subset8-results.csv") %>% mutate(language = "Russian subset 8")) %>%
+  bind_rows(read_csv("ud_rus-subset9-results.csv") %>% mutate(language = "Russian subset 9")) %>%
+  bind_rows(read_csv("ud_rus-subset10-results.csv") %>% mutate(language = "Russian subset 10"))
+
+sanskrit <- read_csv("ud_san-results.csv") %>%
+  mutate(language = "Sanskrit")
+
+serbian <- read_csv("ud_ser-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Serbian") %>%
+  bind_rows(read_csv("ud_ser-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 1")) %>%
+  bind_rows(read_csv("ud_ser-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 2")) %>%
+  bind_rows(read_csv("ud_ser-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 3")) %>%
+  bind_rows(read_csv("ud_ser-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 4")) %>%
+  bind_rows(read_csv("ud_ser-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 5")) %>%
+  bind_rows(read_csv("ud_ser-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 6")) %>%
+  bind_rows(read_csv("ud_ser-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 7")) %>%
+  bind_rows(read_csv("ud_ser-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 8")) %>%
+  bind_rows(read_csv("ud_ser-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 9")) %>%
+  bind_rows(read_csv("ud_ser-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Serbian subset 10"))
+
+slovakian <- read_csv("ud_slvk-results.csv") %>%
+  mutate(language = "Slovak") %>%
+  bind_rows(read_csv("ud_slvk-subset1-results.csv") %>% mutate(language = "Slovak subset 1")) %>%
+  bind_rows(read_csv("ud_slvk-subset2-results.csv") %>% mutate(language = "Slovak subset 2")) %>%
+  bind_rows(read_csv("ud_slvk-subset3-results.csv") %>% mutate(language = "Slovak subset 3")) %>%
+  bind_rows(read_csv("ud_slvk-subset4-results.csv") %>% mutate(language = "Slovak subset 4")) %>%
+  bind_rows(read_csv("ud_slvk-subset5-results.csv") %>% mutate(language = "Slovak subset 5")) %>%
+  bind_rows(read_csv("ud_slvk-subset6-results.csv") %>% mutate(language = "Slovak subset 6")) %>%
+  bind_rows(read_csv("ud_slvk-subset7-results.csv") %>% mutate(language = "Slovak subset 7")) %>%
+  bind_rows(read_csv("ud_slvk-subset8-results.csv") %>% mutate(language = "Slovak subset 8")) %>%
+  bind_rows(read_csv("ud_slvk-subset9-results.csv") %>% mutate(language = "Slovak subset 9")) %>%
+  bind_rows(read_csv("ud_slvk-subset10-results.csv") %>% mutate(language = "Slovak subset 10"))
+
+slovenian <- read_csv("ud_slvk-results.csv") %>%
+  mutate(language = "Slovenian") %>%
+  bind_rows(read_csv("ud_slvn-subset1-results.csv") %>% mutate(language = "Slovenian subset 1")) %>%
+  bind_rows(read_csv("ud_slvn-subset2-results.csv") %>% mutate(language = "Slovenian subset 2")) %>%
+  bind_rows(read_csv("ud_slvn-subset3-results.csv") %>% mutate(language = "Slovenian subset 3")) %>%
+  bind_rows(read_csv("ud_slvn-subset4-results.csv") %>% mutate(language = "Slovenian subset 4")) %>%
+  bind_rows(read_csv("ud_slvn-subset5-results.csv") %>% mutate(language = "Slovenian subset 5")) %>%
+  bind_rows(read_csv("ud_slvn-subset6-results.csv") %>% mutate(language = "Slovenian subset 6")) %>%
+  bind_rows(read_csv("ud_slvn-subset7-results.csv") %>% mutate(language = "Slovenian subset 7")) %>%
+  bind_rows(read_csv("ud_slvn-subset8-results.csv") %>% mutate(language = "Slovenian subset 8")) %>%
+  bind_rows(read_csv("ud_slvn-subset9-results.csv") %>% mutate(language = "Slovenian subset 9")) %>%
+  bind_rows(read_csv("ud_slvn-subset10-results.csv") %>% mutate(language = "Slovenian subset 10"))
+
+spanish <- read_csv("ud_slvn-results.csv") %>%
+  mutate(language = "Spanish") %>%
+  bind_rows(read_csv("ud_spa-subset1-results.csv") %>% mutate(language = "Spanish subset 1")) %>%
+  bind_rows(read_csv("ud_spa-subset2-results.csv") %>% mutate(language = "Spanish subset 2")) %>%
+  bind_rows(read_csv("ud_spa-subset3-results.csv") %>% mutate(language = "Spanish subset 3")) %>%
+  bind_rows(read_csv("ud_spa-subset4-results.csv") %>% mutate(language = "Spanish subset 4")) %>%
+  bind_rows(read_csv("ud_spa-subset5-results.csv") %>% mutate(language = "Spanish subset 5")) %>%
+  bind_rows(read_csv("ud_spa-subset6-results.csv") %>% mutate(language = "Spanish subset 6")) %>%
+  bind_rows(read_csv("ud_spa-subset7-results.csv") %>% mutate(language = "Spanish subset 7")) %>%
+  bind_rows(read_csv("ud_spa-subset8-results.csv") %>% mutate(language = "Spanish subset 8")) %>%
+  bind_rows(read_csv("ud_spa-subset9-results.csv") %>% mutate(language = "Spanish subset 9")) %>%
+  bind_rows(read_csv("ud_spa-subset10-results.csv") %>% mutate(language = "Spanish subset 10"))
+
+skolt_sami <- read_csv("ud_ssa-results.csv") %>%
+  mutate(language = "Skolt Sami")
+
+swedish_sign <- read_csv("ud_ssl-results.csv") %>%
+  mutate(language = "Swedish Sign Language")
+
+assyrian <- read_csv("ud_sur-results.csv") %>%
+  mutate(language = "Assyrian")
+
+swedish <- read_csv("ud_swe-results.csv") %>%
+  mutate(language = "Swedish") %>%
+  bind_rows(read_csv("ud_swe-subset1-results.csv") %>% mutate(language = "Swedish subset 1")) %>%
+  bind_rows(read_csv("ud_swe-subset2-results.csv") %>% mutate(language = "Swedish subset 2")) %>%
+  bind_rows(read_csv("ud_swe-subset3-results.csv") %>% mutate(language = "Swedish subset 3")) %>%
+  bind_rows(read_csv("ud_swe-subset4-results.csv") %>% mutate(language = "Swedish subset 4")) %>%
+  bind_rows(read_csv("ud_swe-subset5-results.csv") %>% mutate(language = "Swedish subset 5")) %>%
+  bind_rows(read_csv("ud_swe-subset6-results.csv") %>% mutate(language = "Swedish subset 6")) %>%
+  bind_rows(read_csv("ud_swe-subset7-results.csv") %>% mutate(language = "Swedish subset 7")) %>%
+  bind_rows(read_csv("ud_swe-subset8-results.csv") %>% mutate(language = "Swedish subset 8")) %>%
+  bind_rows(read_csv("ud_swe-subset9-results.csv") %>% mutate(language = "Swedish subset 9")) %>%
+  bind_rows(read_csv("ud_swe-subset10-results.csv") %>% mutate(language = "Swedish subset 10"))
+
+swiss_german <- read_csv("ud_swg-results.csv") %>%
+  mutate(language = "Swiss German")
+
+tagalog <- read_csv("ud_tag-results.csv") %>%
+  mutate(language = "Tagalog")
+
+tamil <- read_csv("ud_tam-results.csv") %>%
+  mutate(language = "Tamil")
+
+telugu <- read_csv("ud_tel-results.csv") %>%
+  mutate(language = "Telugu") %>%
+  bind_rows(read_csv("ud_tel-subset1-results.csv") %>% mutate(language = "Telugu subset 1")) %>%
+  bind_rows(read_csv("ud_tel-subset2-results.csv") %>% mutate(language = "Telugu subset 2")) %>%
+  bind_rows(read_csv("ud_tel-subset3-results.csv") %>% mutate(language = "Telugu subset 3")) %>%
+  bind_rows(read_csv("ud_tel-subset4-results.csv") %>% mutate(language = "Telugu subset 4")) %>%
+  bind_rows(read_csv("ud_tel-subset5-results.csv") %>% mutate(language = "Telugu subset 5")) %>%
+  bind_rows(read_csv("ud_tel-subset6-results.csv") %>% mutate(language = "Telugu subset 6")) %>%
+  bind_rows(read_csv("ud_tel-subset7-results.csv") %>% mutate(language = "Telugu subset 7")) %>%
+  bind_rows(read_csv("ud_tel-subset8-results.csv") %>% mutate(language = "Telugu subset 8")) %>%
+  bind_rows(read_csv("ud_tel-subset9-results.csv") %>% mutate(language = "Telugu subset 9")) %>%
+  bind_rows(read_csv("ud_tel-subset10-results.csv") %>% mutate(language = "Telugu subset 10"))
+
+thai <- read_csv("ud_tha-results.csv") %>%
+  mutate(language = "Thai")
+
+turkish <- read_csv("ud_tur-results.csv") %>%
+  mutate(language = "Turkish") %>%
+  bind_rows(read_csv("ud_tur-subset1-results.csv") %>% mutate(language = "Turkish subset 1")) %>%
+  bind_rows(read_csv("ud_tur-subset2-results.csv") %>% mutate(language = "Turkish subset 2")) %>%
+  bind_rows(read_csv("ud_tur-subset3-results.csv") %>% mutate(language = "Turkish subset 3")) %>%
+  bind_rows(read_csv("ud_tur-subset4-results.csv") %>% mutate(language = "Turkish subset 4")) %>%
+  bind_rows(read_csv("ud_tur-subset5-results.csv") %>% mutate(language = "Turkish subset 5")) %>%
+  bind_rows(read_csv("ud_tur-subset6-results.csv") %>% mutate(language = "Turkish subset 6")) %>%
+  bind_rows(read_csv("ud_tur-subset7-results.csv") %>% mutate(language = "Turkish subset 7")) %>%
+  bind_rows(read_csv("ud_tur-subset8-results.csv") %>% mutate(language = "Turkish subset 8")) %>%
+  bind_rows(read_csv("ud_tur-subset9-results.csv") %>% mutate(language = "Turkish subset 9")) %>%
+  bind_rows(read_csv("ud_tur-subset10-results.csv") %>% mutate(language = "Turkish subset 10"))
+
+ukrainian <- read_csv("ud_ukr-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Ukrainian") %>%
+  bind_rows(read_csv("ud_ukr-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 1")) %>%
+  bind_rows(read_csv("ud_ukr-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 2")) %>%
+  bind_rows(read_csv("ud_ukr-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 3")) %>%
+  bind_rows(read_csv("ud_ukr-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 4")) %>%
+  bind_rows(read_csv("ud_ukr-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 5")) %>%
+  bind_rows(read_csv("ud_ukr-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 6")) %>%
+  bind_rows(read_csv("ud_ukr-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 7")) %>%
+  bind_rows(read_csv("ud_ukr-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 8")) %>%
+  bind_rows(read_csv("ud_ukr-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 9")) %>%
+  bind_rows(read_csv("ud_ukr-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Ukrainian subset 10"))
+
+urdu <- read_csv("ud_urd-results.csv") %>%
+  mutate(language = "Urdu") %>%
+  bind_rows(read_csv("ud_urd-subset1-results.csv") %>% mutate(language = "Urdu subset 1")) %>%
+  bind_rows(read_csv("ud_urd-subset2-results.csv") %>% mutate(language = "Urdu subset 2")) %>%
+  bind_rows(read_csv("ud_urd-subset3-results.csv") %>% mutate(language = "Urdu subset 3")) %>%
+  bind_rows(read_csv("ud_urd-subset4-results.csv") %>% mutate(language = "Urdu subset 4")) %>%
+  bind_rows(read_csv("ud_urd-subset5-results.csv") %>% mutate(language = "Urdu subset 5")) %>%
+  bind_rows(read_csv("ud_urd-subset6-results.csv") %>% mutate(language = "Urdu subset 6")) %>%
+  bind_rows(read_csv("ud_urd-subset7-results.csv") %>% mutate(language = "Urdu subset 7")) %>%
+  bind_rows(read_csv("ud_urd-subset8-results.csv") %>% mutate(language = "Urdu subset 8")) %>%
+  bind_rows(read_csv("ud_urd-subset9-results.csv") %>% mutate(language = "Urdu subset 9")) %>%
+  bind_rows(read_csv("ud_urd-subset10-results.csv") %>% mutate(language = "Urdu subset 10"))
+
+upper_sorbian <- read_csv("ud_uso-results.csv") %>%
+  mutate(language = "Upper Sorbian")
+
+uyghur <- read_csv("ud_uyg-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Uyghur") %>%
+  bind_rows(read_csv("ud_uyg-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 1")) %>%
+  bind_rows(read_csv("ud_uyg-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 2")) %>%
+  bind_rows(read_csv("ud_uyg-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 3")) %>%
+  bind_rows(read_csv("ud_uyg-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 4")) %>%
+  bind_rows(read_csv("ud_uyg-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 5")) %>%
+  bind_rows(read_csv("ud_uyg-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 6")) %>%
+  bind_rows(read_csv("ud_uyg-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 7")) %>%
+  bind_rows(read_csv("ud_uyg-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 8")) %>%
+  bind_rows(read_csv("ud_uyg-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 9")) %>%
+  bind_rows(read_csv("ud_uyg-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Uyghur subset 10"))
+
+vietnamese <- read_csv("ud_vie-results.csv") %>%
+  mutate(I2 = as.double(I2), language = "Vietnamese") %>%
+  bind_rows(read_csv("ud_vie-subset1-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 1")) %>%
+  bind_rows(read_csv("ud_vie-subset2-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 2")) %>%
+  bind_rows(read_csv("ud_vie-subset3-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 3")) %>%
+  bind_rows(read_csv("ud_vie-subset4-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 4")) %>%
+  bind_rows(read_csv("ud_vie-subset5-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 5")) %>%
+  bind_rows(read_csv("ud_vie-subset6-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 6")) %>%
+  bind_rows(read_csv("ud_vie-subset7-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 7")) %>%
+  bind_rows(read_csv("ud_vie-subset8-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 8")) %>%
+  bind_rows(read_csv("ud_vie-subset9-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 9")) %>%
+  bind_rows(read_csv("ud_vie-subset10-results.csv") %>% mutate(I2 = as.double(I2), language = "Vietnamese subset 10"))
+
+warlpiri <- read_csv("ud_war-results.csv") %>%
+  mutate(language = "Warlpiri")
+
+wolof <- read_csv("ud_wol-results.csv") %>%
+  mutate(language = "Wolof") %>%
+  bind_rows(read_csv("ud_wol-subset1-results.csv") %>% mutate(language = "Wolof subset 1")) %>%
+  bind_rows(read_csv("ud_wol-subset2-results.csv") %>% mutate(language = "Wolof subset 2")) %>%
+  bind_rows(read_csv("ud_wol-subset3-results.csv") %>% mutate(language = "Wolof subset 3")) %>%
+  bind_rows(read_csv("ud_wol-subset4-results.csv") %>% mutate(language = "Wolof subset 4")) %>%
+  bind_rows(read_csv("ud_wol-subset5-results.csv") %>% mutate(language = "Wolof subset 5")) %>%
+  bind_rows(read_csv("ud_wol-subset6-results.csv") %>% mutate(language = "Wolof subset 6")) %>%
+  bind_rows(read_csv("ud_wol-subset7-results.csv") %>% mutate(language = "Wolof subset 7")) %>%
+  bind_rows(read_csv("ud_wol-subset8-results.csv") %>% mutate(language = "Wolof subset 8")) %>%
+  bind_rows(read_csv("ud_wol-subset9-results.csv") %>% mutate(language = "Wolof subset 9")) %>%
+  bind_rows(read_csv("ud_wol-subset10-results.csv") %>% mutate(language = "Wolof subset 10"))
+
+yoruba <- read_csv("ud_yor-results.csv") %>%
+  mutate(language = "Yoruba")
+
+mandarin <- read_csv("ud_zho-results.csv") %>%
+  mutate(language = "Mandarin") %>%
+  bind_rows(read_csv("ud_zho-subset1-results.csv") %>% mutate(language = "Mandarin subset 1")) %>%
+  bind_rows(read_csv("ud_zho-subset2-results.csv") %>% mutate(language = "Mandarin subset 2")) %>%
+  bind_rows(read_csv("ud_zho-subset3-results.csv") %>% mutate(language = "Mandarin subset 3")) %>%
+  bind_rows(read_csv("ud_zho-subset4-results.csv") %>% mutate(language = "Mandarin subset 4")) %>%
+  bind_rows(read_csv("ud_zho-subset5-results.csv") %>% mutate(language = "Mandarin subset 5")) %>%
+  bind_rows(read_csv("ud_zho-subset6-results.csv") %>% mutate(language = "Mandarin subset 6")) %>%
+  bind_rows(read_csv("ud_zho-subset7-results.csv") %>% mutate(language = "Mandarin subset 7")) %>%
+  bind_rows(read_csv("ud_zho-subset8-results.csv") %>% mutate(language = "Mandarin subset 8")) %>%
+  bind_rows(read_csv("ud_zho-subset9-results.csv") %>% mutate(language = "Mandarin subset 9")) %>%
+  bind_rows(read_csv("ud_zho-subset10-results.csv") %>% mutate(language = "Mandarin subset 10"))
 
 calcEntRankings <- function(df) {
   svo <- filter(df, Word_Order == "SVO")
@@ -47,7 +835,10 @@ calcEntRankings <- function(df) {
     "VOS", vos_ent_mean,
     "VSO", vso_ent_mean,
     "SVO", svo_ent_mean
-  ) %>% arrange(score)
+  ) %>% arrange(score) %>%
+    mutate(language = df$language[[1]]) %>%
+    mutate(measure = "entropy UID") %>%
+    mutate(rank = min_rank(score))
 }
 
 calcSurpRankings <- function(df) {
@@ -73,7 +864,10 @@ calcSurpRankings <- function(df) {
     "VOS", vos_surp_mean,
     "VSO", vso_surp_mean,
     "SVO", svo_surp_mean
-  ) %>% arrange(score)
+  ) %>% arrange(score) %>%
+    mutate(language = df$language[[1]]) %>%
+    mutate(measure = "surprisal UID") %>%
+    mutate(rank = min_rank(score))
 }
 
 calcMIRankings <- function(df) {
@@ -99,7 +893,10 @@ tribble(
     "VOS", vos_mi_mean,
     "VSO", vso_mi_mean,
     "SVO", svo_mi_mean
-  ) %>% arrange(desc(score))
+  ) %>% arrange(desc(score)) %>%
+  mutate(language = df$language[[1]]) %>%
+  mutate(measure = "mi") %>%
+  mutate(rank = min_rank(desc(score)))
 }
 
 calcZScoreRankings <- function(df) {
@@ -125,727 +922,312 @@ calcZScoreRankings <- function(df) {
     "VOS", vos_z_mean,
     "VSO", vso_z_mean,
     "SVO", svo_z_mean
-  ) %>% arrange(desc(mi_z_score))
+  ) %>% arrange(desc(mi_z_score)) %>%
+    mutate(language = df$language[[1]])
 }
-
-childes_meta <- filter(meta, Language == "childes-brown-eng") 
-breton_meta <- filter(meta, Language == "ud-breton")
-welsh_meta <- filter(meta, Language == "ud-welsh")
-german_meta <- filter(meta, Language == "ud-german")
-english_meta <- filter(meta, Language == "ud-english")
-basque_meta <- filter(meta, Language == "ud-basque")
-irish_meta <- filter(meta, Language == "ud-irish")
-scottish_gaelic_meta <- filter(meta, Language == "ud-scottish_gaelic")
-hindi_meta <- filter(meta, Language == "ud-hindi")
-hungarian_meta <- filter(meta, Language == "ud-hungarian")
-indonesian_meta <- filter(meta, Language == "ud-indonesian")
-japanese_meta <- filter(meta, Language == "ud-japanese")
-korean_meta <- filter(meta, Language == "ud-korean")
-mbya_guarani_meta <- filter(meta, Language == "ud-mbya_guarani")
-dutch_meta <- filter(meta, Language == "ud-dutch")
-tagalog_meta <- filter(meta, Language == "ud-tagalog")
-turkish_meta <- filter(meta, Language == "ud-turkish")
-vietnamese_meta <- filter(meta, Language == "ud-vietnamese")
-warlpiri_meta <- filter(meta, Language == "ud-warlpiri")
-wolof_meta <- filter(meta, Language == "ud-wolof")
-mandarin_meta <- filter(meta, Language == "ud-mandarin")
-
-childes_ent_Rankings <- childes %>% calcEntRankings
-breton_ent_Rankings <- breton %>% calcEntRankings
-welsh_ent_Rankings <- welsh %>% calcEntRankings
-german_ent_Rankings <- german %>% calcEntRankings
-english_ent_Rankings <- english %>% calcEntRankings
-basque_ent_Rankings <- basque %>% calcEntRankings
-irish_ent_Rankings <- irish %>% calcEntRankings
-scottish_gaelic_ent_Rankings <- scottish_gaelic %>% calcEntRankings
-hindi_ent_Rankings <- hindi %>% calcEntRankings
-hungarian_ent_Rankings <- hungarian %>% calcEntRankings
-indonesian_ent_Rankings <- indonesian %>% calcEntRankings
-japanese_ent_Rankings <- japanese %>% calcEntRankings
-korean_ent_Rankings <- korean %>% calcEntRankings
-mbya_guarani_ent_Rankings <- mbya_guarani %>% calcEntRankings
-dutch_ent_Rankings <- dutch %>% calcEntRankings
-tagalog_ent_Rankings <- tagalog %>% calcEntRankings
-turkish_ent_Rankings <- turkish %>% calcEntRankings
-vietnamese_ent_Rankings <- vietnamese %>% calcEntRankings
-warlpiri_ent_Rankings <- warlpiri %>% calcEntRankings
-wolof_ent_Rankings <- wolof %>% calcEntRankings
-mandarin_ent_Rankings <- mandarin %>% calcEntRankings
-
-childes_surp_Rankings <- childes %>% calcSurpRankings
-breton_surp_Rankings <- breton %>% calcSurpRankings
-welsh_surp_Rankings <- welsh %>% calcSurpRankings
-german_surp_Rankings <- german %>% calcSurpRankings
-english_surp_Rankings <- english %>% calcSurpRankings
-basque_surp_Rankings <- basque %>% calcSurpRankings
-irish_surp_Rankings <- irish %>% calcSurpRankings
-scottish_gaelic_surp_Rankings <- scottish_gaelic %>% calcSurpRankings
-hindi_surp_Rankings <- hindi %>% calcSurpRankings
-hungarian_surp_Rankings <- hungarian %>% calcSurpRankings
-indonesian_surp_Rankings <- indonesian %>% calcSurpRankings
-japanese_surp_Rankings <- japanese %>% calcSurpRankings
-korean_surp_Rankings <- korean %>% calcSurpRankings
-mbya_guarani_surp_Rankings <- mbya_guarani %>% calcSurpRankings
-dutch_surp_Rankings <- dutch %>% calcSurpRankings
-tagalog_surp_Rankings <- tagalog %>% calcSurpRankings
-turkish_surp_Rankings <- turkish %>% calcSurpRankings
-vietnamese_surp_Rankings <- vietnamese %>% calcSurpRankings
-warlpiri_surp_Rankings <- warlpiri %>% calcSurpRankings
-wolof_surp_Rankings <- wolof %>% calcSurpRankings
-mandarin_surp_Rankings <- mandarin %>% calcSurpRankings
-
-childes_mi_Rankings <- childes %>% calcMIRankings
-breton_mi_Rankings <- breton %>% calcMIRankings
-welsh_mi_Rankings <- welsh %>% calcMIRankings
-german_mi_Rankings <- german %>% calcMIRankings
-english_mi_Rankings <- english %>% calcMIRankings
-basque_mi_Rankings <- basque %>% calcMIRankings
-irish_mi_Rankings <- irish %>% calcMIRankings
-scottish_gaelic_mi_Rankings <- scottish_gaelic %>% calcMIRankings
-hindi_mi_Rankings <- hindi %>% calcMIRankings
-hungarian_mi_Rankings <- hungarian %>% calcMIRankings
-indonesian_mi_Rankings <- indonesian %>% calcMIRankings
-japanese_mi_Rankings <- japanese %>% calcMIRankings
-korean_mi_Rankings <- korean %>% calcMIRankings
-mbya_guarani_mi_Rankings <- mbya_guarani %>% calcMIRankings
-dutch_mi_Rankings <- dutch %>% calcMIRankings
-tagalog_mi_Rankings <- tagalog %>% calcMIRankings
-turkish_mi_Rankings <- turkish %>% calcMIRankings
-vietnamese_mi_Rankings <- vietnamese %>% calcMIRankings
-warlpiri_mi_Rankings <- warlpiri %>% calcMIRankings
-wolof_mi_Rankings <- wolof %>% calcMIRankings
-mandarin_mi_Rankings <- mandarin %>% calcMIRankings
 
 big_table_o_data <- tribble(
-  ~language, ~measure, ~word_order, ~score,
-  "English CHILDES", "entropy UID", "SVO", filter(childes_ent_Rankings, word_order == "SVO")$score,
-  "English CHILDES", "entropy UID", "SOV", filter(childes_ent_Rankings, word_order == "SOV")$score,
-  "English CHILDES", "entropy UID", "VSO", filter(childes_ent_Rankings, word_order == "VSO")$score,
-  "English CHILDES", "entropy UID", "VOS", filter(childes_ent_Rankings, word_order == "VOS")$score,
-  "English CHILDES", "entropy UID", "OVS", filter(childes_ent_Rankings, word_order == "OVS")$score,
-  "English CHILDES", "entropy UID", "OSV", filter(childes_ent_Rankings, word_order == "OSV")$score,
-  "English CHILDES", "surprisal UID", "SVO", filter(childes_surp_Rankings, word_order == "SVO")$score,
-  "English CHILDES", "surprisal UID", "SOV", filter(childes_surp_Rankings, word_order == "SOV")$score,
-  "English CHILDES", "surprisal UID", "VSO", filter(childes_surp_Rankings, word_order == "VSO")$score,
-  "English CHILDES", "surprisal UID", "VOS", filter(childes_surp_Rankings, word_order == "VOS")$score,
-  "English CHILDES", "surprisal UID", "OVS", filter(childes_surp_Rankings, word_order == "OVS")$score,
-  "English CHILDES", "surprisal UID", "OSV", filter(childes_surp_Rankings, word_order == "OSV")$score,
-  "English CHILDES", "mi", "SVO", filter(childes_mi_Rankings, word_order == "SVO")$score,
-  "English CHILDES", "mi", "SOV", filter(childes_mi_Rankings, word_order == "SOV")$score,
-  "English CHILDES", "mi", "VSO", filter(childes_mi_Rankings, word_order == "VSO")$score,
-  "English CHILDES", "mi", "VOS", filter(childes_mi_Rankings, word_order == "VOS")$score,
-  "English CHILDES", "mi", "OVS", filter(childes_mi_Rankings, word_order == "OVS")$score,
-  "English CHILDES", "mi", "OSV", filter(childes_mi_Rankings, word_order == "OSV")$score,
-  "Breton", "entropy UID", "SVO", filter(breton_ent_Rankings, word_order == "SVO")$score,
-  "Breton", "entropy UID", "SOV", filter(breton_ent_Rankings, word_order == "SOV")$score,
-  "Breton", "entropy UID", "VSO", filter(breton_ent_Rankings, word_order == "VSO")$score,
-  "Breton", "entropy UID", "VOS", filter(breton_ent_Rankings, word_order == "VOS")$score,
-  "Breton", "entropy UID", "OVS", filter(breton_ent_Rankings, word_order == "OVS")$score,
-  "Breton", "entropy UID", "OSV", filter(breton_ent_Rankings, word_order == "OSV")$score,
-  "Breton", "surprisal UID", "SVO", filter(breton_surp_Rankings, word_order == "SVO")$score,
-  "Breton", "surprisal UID", "SOV", filter(breton_surp_Rankings, word_order == "SOV")$score,
-  "Breton", "surprisal UID", "VSO", filter(breton_surp_Rankings, word_order == "VSO")$score,
-  "Breton", "surprisal UID", "VOS", filter(breton_surp_Rankings, word_order == "VOS")$score,
-  "Breton", "surprisal UID", "OVS", filter(breton_surp_Rankings, word_order == "OVS")$score,
-  "Breton", "surprisal UID", "OSV", filter(breton_surp_Rankings, word_order == "OSV")$score,
-  "Breton", "mi", "SVO", filter(breton_mi_Rankings, word_order == "SVO")$score,
-  "Breton", "mi", "SOV", filter(breton_mi_Rankings, word_order == "SOV")$score,
-  "Breton", "mi", "VSO", filter(breton_mi_Rankings, word_order == "VSO")$score,
-  "Breton", "mi", "VOS", filter(breton_mi_Rankings, word_order == "VOS")$score,
-  "Breton", "mi", "OVS", filter(breton_mi_Rankings, word_order == "OVS")$score,
-  "Breton", "mi", "OSV", filter(breton_mi_Rankings, word_order == "OSV")$score,
-  "Welsh", "entropy UID", "SVO", filter(welsh_ent_Rankings, word_order == "SVO")$score,
-  "Welsh", "entropy UID", "SOV", filter(welsh_ent_Rankings, word_order == "SOV")$score,
-  "Welsh", "entropy UID", "VSO", filter(welsh_ent_Rankings, word_order == "VSO")$score,
-  "Welsh", "entropy UID", "VOS", filter(welsh_ent_Rankings, word_order == "VOS")$score,
-  "Welsh", "entropy UID", "OVS", filter(welsh_ent_Rankings, word_order == "OVS")$score,
-  "Welsh", "entropy UID", "OSV", filter(welsh_ent_Rankings, word_order == "OSV")$score,
-  "Welsh", "surprisal UID", "SVO", filter(welsh_surp_Rankings, word_order == "SVO")$score,
-  "Welsh", "surprisal UID", "SOV", filter(welsh_surp_Rankings, word_order == "SOV")$score,
-  "Welsh", "surprisal UID", "VSO", filter(welsh_surp_Rankings, word_order == "VSO")$score,
-  "Welsh", "surprisal UID", "VOS", filter(welsh_surp_Rankings, word_order == "VOS")$score,
-  "Welsh", "surprisal UID", "OVS", filter(welsh_surp_Rankings, word_order == "OVS")$score,
-  "Welsh", "surprisal UID", "OSV", filter(welsh_surp_Rankings, word_order == "OSV")$score,
-  "Welsh", "mi", "SVO", filter(welsh_mi_Rankings, word_order == "SVO")$score,
-  "Welsh", "mi", "SOV", filter(welsh_mi_Rankings, word_order == "SOV")$score,
-  "Welsh", "mi", "VSO", filter(welsh_mi_Rankings, word_order == "VSO")$score,
-  "Welsh", "mi", "VOS", filter(welsh_mi_Rankings, word_order == "VOS")$score,
-  "Welsh", "mi", "OVS", filter(welsh_mi_Rankings, word_order == "OVS")$score,
-  "Welsh", "mi", "OSV", filter(welsh_mi_Rankings, word_order == "OSV")$score,
-  "German", "entropy UID", "SVO", filter(german_ent_Rankings, word_order == "SVO")$score,
-  "German", "entropy UID", "SOV", filter(german_ent_Rankings, word_order == "SOV")$score,
-  "German", "entropy UID", "VSO", filter(german_ent_Rankings, word_order == "VSO")$score,
-  "German", "entropy UID", "VOS", filter(german_ent_Rankings, word_order == "VOS")$score,
-  "German", "entropy UID", "OVS", filter(german_ent_Rankings, word_order == "OVS")$score,
-  "German", "entropy UID", "OSV", filter(german_ent_Rankings, word_order == "OSV")$score,
-  "German", "surprisal UID", "SVO", filter(german_surp_Rankings, word_order == "SVO")$score,
-  "German", "surprisal UID", "SOV", filter(german_surp_Rankings, word_order == "SOV")$score,
-  "German", "surprisal UID", "VSO", filter(german_surp_Rankings, word_order == "VSO")$score,
-  "German", "surprisal UID", "VOS", filter(german_surp_Rankings, word_order == "VOS")$score,
-  "German", "surprisal UID", "OVS", filter(german_surp_Rankings, word_order == "OVS")$score,
-  "German", "surprisal UID", "OSV", filter(german_surp_Rankings, word_order == "OSV")$score,
-  "German", "mi", "SVO", filter(german_mi_Rankings, word_order == "SVO")$score,
-  "German", "mi", "SOV", filter(german_mi_Rankings, word_order == "SOV")$score,
-  "German", "mi", "VSO", filter(german_mi_Rankings, word_order == "VSO")$score,
-  "German", "mi", "VOS", filter(german_mi_Rankings, word_order == "VOS")$score,
-  "German", "mi", "OVS", filter(german_mi_Rankings, word_order == "OVS")$score,
-  "German", "mi", "OSV", filter(german_mi_Rankings, word_order == "OSV")$score,
-  "English", "entropy UID", "SVO", filter(english_ent_Rankings, word_order == "SVO")$score,
-  "English", "entropy UID", "SOV", filter(english_ent_Rankings, word_order == "SOV")$score,
-  "English", "entropy UID", "VSO", filter(english_ent_Rankings, word_order == "VSO")$score,
-  "English", "entropy UID", "VOS", filter(english_ent_Rankings, word_order == "VOS")$score,
-  "English", "entropy UID", "OVS", filter(english_ent_Rankings, word_order == "OVS")$score,
-  "English", "entropy UID", "OSV", filter(english_ent_Rankings, word_order == "OSV")$score,
-  "English", "surprisal UID", "SVO", filter(english_surp_Rankings, word_order == "SVO")$score,
-  "English", "surprisal UID", "SOV", filter(english_surp_Rankings, word_order == "SOV")$score,
-  "English", "surprisal UID", "VSO", filter(english_surp_Rankings, word_order == "VSO")$score,
-  "English", "surprisal UID", "VOS", filter(english_surp_Rankings, word_order == "VOS")$score,
-  "English", "surprisal UID", "OVS", filter(english_surp_Rankings, word_order == "OVS")$score,
-  "English", "surprisal UID", "OSV", filter(english_surp_Rankings, word_order == "OSV")$score,
-  "English", "mi", "SVO", filter(english_mi_Rankings, word_order == "SVO")$score,
-  "English", "mi", "SOV", filter(english_mi_Rankings, word_order == "SOV")$score,
-  "English", "mi", "VSO", filter(english_mi_Rankings, word_order == "VSO")$score,
-  "English", "mi", "VOS", filter(english_mi_Rankings, word_order == "VOS")$score,
-  "English", "mi", "OVS", filter(english_mi_Rankings, word_order == "OVS")$score,
-  "English", "mi", "OSV", filter(english_mi_Rankings, word_order == "OSV")$score,
-  "Basque", "entropy UID", "SVO", filter(basque_ent_Rankings, word_order == "SVO")$score,
-  "Basque", "entropy UID", "SOV", filter(basque_ent_Rankings, word_order == "SOV")$score,
-  "Basque", "entropy UID", "VSO", filter(basque_ent_Rankings, word_order == "VSO")$score,
-  "Basque", "entropy UID", "VOS", filter(basque_ent_Rankings, word_order == "VOS")$score,
-  "Basque", "entropy UID", "OVS", filter(basque_ent_Rankings, word_order == "OVS")$score,
-  "Basque", "entropy UID", "OSV", filter(basque_ent_Rankings, word_order == "OSV")$score,
-  "Basque", "surprisal UID", "SVO", filter(basque_surp_Rankings, word_order == "SVO")$score,
-  "Basque", "surprisal UID", "SOV", filter(basque_surp_Rankings, word_order == "SOV")$score,
-  "Basque", "surprisal UID", "VSO", filter(basque_surp_Rankings, word_order == "VSO")$score,
-  "Basque", "surprisal UID", "VOS", filter(basque_surp_Rankings, word_order == "VOS")$score,
-  "Basque", "surprisal UID", "OVS", filter(basque_surp_Rankings, word_order == "OVS")$score,
-  "Basque", "surprisal UID", "OSV", filter(basque_surp_Rankings, word_order == "OSV")$score,
-  "Basque", "mi", "SVO", filter(basque_mi_Rankings, word_order == "SVO")$score,
-  "Basque", "mi", "SOV", filter(basque_mi_Rankings, word_order == "SOV")$score,
-  "Basque", "mi", "VSO", filter(basque_mi_Rankings, word_order == "VSO")$score,
-  "Basque", "mi", "VOS", filter(basque_mi_Rankings, word_order == "VOS")$score,
-  "Basque", "mi", "OVS", filter(basque_mi_Rankings, word_order == "OVS")$score,
-  "Basque", "mi", "OSV", filter(basque_mi_Rankings, word_order == "OSV")$score,
-  "Irish", "entropy UID", "SVO", filter(irish_ent_Rankings, word_order == "SVO")$score,
-  "Irish", "entropy UID", "SOV", filter(irish_ent_Rankings, word_order == "SOV")$score,
-  "Irish", "entropy UID", "VSO", filter(irish_ent_Rankings, word_order == "VSO")$score,
-  "Irish", "entropy UID", "VOS", filter(irish_ent_Rankings, word_order == "VOS")$score,
-  "Irish", "entropy UID", "OVS", filter(irish_ent_Rankings, word_order == "OVS")$score,
-  "Irish", "entropy UID", "OSV", filter(irish_ent_Rankings, word_order == "OSV")$score,
-  "Irish", "surprisal UID", "SVO", filter(irish_surp_Rankings, word_order == "SVO")$score,
-  "Irish", "surprisal UID", "SOV", filter(irish_surp_Rankings, word_order == "SOV")$score,
-  "Irish", "surprisal UID", "VSO", filter(irish_surp_Rankings, word_order == "VSO")$score,
-  "Irish", "surprisal UID", "VOS", filter(irish_surp_Rankings, word_order == "VOS")$score,
-  "Irish", "surprisal UID", "OVS", filter(irish_surp_Rankings, word_order == "OVS")$score,
-  "Irish", "surprisal UID", "OSV", filter(irish_surp_Rankings, word_order == "OSV")$score,
-  "Irish", "mi", "SVO", filter(irish_mi_Rankings, word_order == "SVO")$score,
-  "Irish", "mi", "SOV", filter(irish_mi_Rankings, word_order == "SOV")$score,
-  "Irish", "mi", "VSO", filter(irish_mi_Rankings, word_order == "VSO")$score,
-  "Irish", "mi", "VOS", filter(irish_mi_Rankings, word_order == "VOS")$score,
-  "Irish", "mi", "OVS", filter(irish_mi_Rankings, word_order == "OVS")$score,
-  "Irish", "mi", "OSV", filter(irish_mi_Rankings, word_order == "OSV")$score,
-  "Scottish Gaelic", "entropy UID", "SVO", filter(scottish_gaelic_ent_Rankings, word_order == "SVO")$score,
-  "Scottish Gaelic", "entropy UID", "SOV", filter(scottish_gaelic_ent_Rankings, word_order == "SOV")$score,
-  "Scottish Gaelic", "entropy UID", "VSO", filter(scottish_gaelic_ent_Rankings, word_order == "VSO")$score,
-  "Scottish Gaelic", "entropy UID", "VOS", filter(scottish_gaelic_ent_Rankings, word_order == "VOS")$score,
-  "Scottish Gaelic", "entropy UID", "OVS", filter(scottish_gaelic_ent_Rankings, word_order == "OVS")$score,
-  "Scottish Gaelic", "entropy UID", "OSV", filter(scottish_gaelic_ent_Rankings, word_order == "OSV")$score,
-  "Scottish Gaelic", "surprisal UID", "SVO", filter(scottish_gaelic_surp_Rankings, word_order == "SVO")$score,
-  "Scottish Gaelic", "surprisal UID", "SOV", filter(scottish_gaelic_surp_Rankings, word_order == "SOV")$score,
-  "Scottish Gaelic", "surprisal UID", "VSO", filter(scottish_gaelic_surp_Rankings, word_order == "VSO")$score,
-  "Scottish Gaelic", "surprisal UID", "VOS", filter(scottish_gaelic_surp_Rankings, word_order == "VOS")$score,
-  "Scottish Gaelic", "surprisal UID", "OVS", filter(scottish_gaelic_surp_Rankings, word_order == "OVS")$score,
-  "Scottish Gaelic", "surprisal UID", "OSV", filter(scottish_gaelic_surp_Rankings, word_order == "OSV")$score,
-  "Scottish Gaelic", "mi", "SVO", filter(scottish_gaelic_mi_Rankings, word_order == "SVO")$score,
-  "Scottish Gaelic", "mi", "SOV", filter(scottish_gaelic_mi_Rankings, word_order == "SOV")$score,
-  "Scottish Gaelic", "mi", "VSO", filter(scottish_gaelic_mi_Rankings, word_order == "VSO")$score,
-  "Scottish Gaelic", "mi", "VOS", filter(scottish_gaelic_mi_Rankings, word_order == "VOS")$score,
-  "Scottish Gaelic", "mi", "OVS", filter(scottish_gaelic_mi_Rankings, word_order == "OVS")$score,
-  "Scottish Gaelic", "mi", "OSV", filter(scottish_gaelic_mi_Rankings, word_order == "OSV")$score,
-  "Hindi", "entropy UID", "SVO", filter(hindi_ent_Rankings, word_order == "SVO")$score,
-  "Hindi", "entropy UID", "SOV", filter(hindi_ent_Rankings, word_order == "SOV")$score,
-  "Hindi", "entropy UID", "VSO", filter(hindi_ent_Rankings, word_order == "VSO")$score,
-  "Hindi", "entropy UID", "VOS", filter(hindi_ent_Rankings, word_order == "VOS")$score,
-  "Hindi", "entropy UID", "OVS", filter(hindi_ent_Rankings, word_order == "OVS")$score,
-  "Hindi", "entropy UID", "OSV", filter(hindi_ent_Rankings, word_order == "OSV")$score,
-  "Hindi", "surprisal UID", "SVO", filter(hindi_surp_Rankings, word_order == "SVO")$score,
-  "Hindi", "surprisal UID", "SOV", filter(hindi_surp_Rankings, word_order == "SOV")$score,
-  "Hindi", "surprisal UID", "VSO", filter(hindi_surp_Rankings, word_order == "VSO")$score,
-  "Hindi", "surprisal UID", "VOS", filter(hindi_surp_Rankings, word_order == "VOS")$score,
-  "Hindi", "surprisal UID", "OVS", filter(hindi_surp_Rankings, word_order == "OVS")$score,
-  "Hindi", "surprisal UID", "OSV", filter(hindi_surp_Rankings, word_order == "OSV")$score,
-  "Hindi", "mi", "SVO", filter(hindi_mi_Rankings, word_order == "SVO")$score,
-  "Hindi", "mi", "SOV", filter(hindi_mi_Rankings, word_order == "SOV")$score,
-  "Hindi", "mi", "VSO", filter(hindi_mi_Rankings, word_order == "VSO")$score,
-  "Hindi", "mi", "VOS", filter(hindi_mi_Rankings, word_order == "VOS")$score,
-  "Hindi", "mi", "OVS", filter(hindi_mi_Rankings, word_order == "OVS")$score,
-  "Hindi", "mi", "OSV", filter(hindi_mi_Rankings, word_order == "OSV")$score,
-  "Hungarian", "entropy UID", "SVO", filter(hungarian_ent_Rankings, word_order == "SVO")$score,
-  "Hungarian", "entropy UID", "SOV", filter(hungarian_ent_Rankings, word_order == "SOV")$score,
-  "Hungarian", "entropy UID", "VSO", filter(hungarian_ent_Rankings, word_order == "VSO")$score,
-  "Hungarian", "entropy UID", "VOS", filter(hungarian_ent_Rankings, word_order == "VOS")$score,
-  "Hungarian", "entropy UID", "OVS", filter(hungarian_ent_Rankings, word_order == "OVS")$score,
-  "Hungarian", "entropy UID", "OSV", filter(hungarian_ent_Rankings, word_order == "OSV")$score,
-  "Hungarian", "surprisal UID", "SVO", filter(hungarian_surp_Rankings, word_order == "SVO")$score,
-  "Hungarian", "surprisal UID", "SOV", filter(hungarian_surp_Rankings, word_order == "SOV")$score,
-  "Hungarian", "surprisal UID", "VSO", filter(hungarian_surp_Rankings, word_order == "VSO")$score,
-  "Hungarian", "surprisal UID", "VOS", filter(hungarian_surp_Rankings, word_order == "VOS")$score,
-  "Hungarian", "surprisal UID", "OVS", filter(hungarian_surp_Rankings, word_order == "OVS")$score,
-  "Hungarian", "surprisal UID", "OSV", filter(hungarian_surp_Rankings, word_order == "OSV")$score,
-  "Hungarian", "mi", "SVO", filter(hungarian_mi_Rankings, word_order == "SVO")$score,
-  "Hungarian", "mi", "SOV", filter(hungarian_mi_Rankings, word_order == "SOV")$score,
-  "Hungarian", "mi", "VSO", filter(hungarian_mi_Rankings, word_order == "VSO")$score,
-  "Hungarian", "mi", "VOS", filter(hungarian_mi_Rankings, word_order == "VOS")$score,
-  "Hungarian", "mi", "OVS", filter(hungarian_mi_Rankings, word_order == "OVS")$score,
-  "Hungarian", "mi", "OSV", filter(hungarian_mi_Rankings, word_order == "OSV")$score,
-  "Indonesian", "entropy UID", "SVO", filter(indonesian_ent_Rankings, word_order == "SVO")$score,
-  "Indonesian", "entropy UID", "SOV", filter(indonesian_ent_Rankings, word_order == "SOV")$score,
-  "Indonesian", "entropy UID", "VSO", filter(indonesian_ent_Rankings, word_order == "VSO")$score,
-  "Indonesian", "entropy UID", "VOS", filter(indonesian_ent_Rankings, word_order == "VOS")$score,
-  "Indonesian", "entropy UID", "OVS", filter(indonesian_ent_Rankings, word_order == "OVS")$score,
-  "Indonesian", "entropy UID", "OSV", filter(indonesian_ent_Rankings, word_order == "OSV")$score,
-  "Indonesian", "surprisal UID", "SVO", filter(indonesian_surp_Rankings, word_order == "SVO")$score,
-  "Indonesian", "surprisal UID", "SOV", filter(indonesian_surp_Rankings, word_order == "SOV")$score,
-  "Indonesian", "surprisal UID", "VSO", filter(indonesian_surp_Rankings, word_order == "VSO")$score,
-  "Indonesian", "surprisal UID", "VOS", filter(indonesian_surp_Rankings, word_order == "VOS")$score,
-  "Indonesian", "surprisal UID", "OVS", filter(indonesian_surp_Rankings, word_order == "OVS")$score,
-  "Indonesian", "surprisal UID", "OSV", filter(indonesian_surp_Rankings, word_order == "OSV")$score,
-  "Indonesian", "mi", "SVO", filter(indonesian_mi_Rankings, word_order == "SVO")$score,
-  "Indonesian", "mi", "SOV", filter(indonesian_mi_Rankings, word_order == "SOV")$score,
-  "Indonesian", "mi", "VSO", filter(indonesian_mi_Rankings, word_order == "VSO")$score,
-  "Indonesian", "mi", "VOS", filter(indonesian_mi_Rankings, word_order == "VOS")$score,
-  "Indonesian", "mi", "OVS", filter(indonesian_mi_Rankings, word_order == "OVS")$score,
-  "Indonesian", "mi", "OSV", filter(indonesian_mi_Rankings, word_order == "OSV")$score,
-  "Japanese", "entropy UID", "SVO", filter(japanese_ent_Rankings, word_order == "SVO")$score,
-  "Japanese", "entropy UID", "SOV", filter(japanese_ent_Rankings, word_order == "SOV")$score,
-  "Japanese", "entropy UID", "VSO", filter(japanese_ent_Rankings, word_order == "VSO")$score,
-  "Japanese", "entropy UID", "VOS", filter(japanese_ent_Rankings, word_order == "VOS")$score,
-  "Japanese", "entropy UID", "OVS", filter(japanese_ent_Rankings, word_order == "OVS")$score,
-  "Japanese", "entropy UID", "OSV", filter(japanese_ent_Rankings, word_order == "OSV")$score,
-  "Japanese", "surprisal UID", "SVO", filter(japanese_surp_Rankings, word_order == "SVO")$score,
-  "Japanese", "surprisal UID", "SOV", filter(japanese_surp_Rankings, word_order == "SOV")$score,
-  "Japanese", "surprisal UID", "VSO", filter(japanese_surp_Rankings, word_order == "VSO")$score,
-  "Japanese", "surprisal UID", "VOS", filter(japanese_surp_Rankings, word_order == "VOS")$score,
-  "Japanese", "surprisal UID", "OVS", filter(japanese_surp_Rankings, word_order == "OVS")$score,
-  "Japanese", "surprisal UID", "OSV", filter(japanese_surp_Rankings, word_order == "OSV")$score,
-  "Japanese", "mi", "SVO", filter(japanese_mi_Rankings, word_order == "SVO")$score,
-  "Japanese", "mi", "SOV", filter(japanese_mi_Rankings, word_order == "SOV")$score,
-  "Japanese", "mi", "VSO", filter(japanese_mi_Rankings, word_order == "VSO")$score,
-  "Japanese", "mi", "VOS", filter(japanese_mi_Rankings, word_order == "VOS")$score,
-  "Japanese", "mi", "OVS", filter(japanese_mi_Rankings, word_order == "OVS")$score,
-  "Japanese", "mi", "OSV", filter(japanese_mi_Rankings, word_order == "OSV")$score,
-  "Korean", "entropy UID", "SVO", filter(korean_ent_Rankings, word_order == "SVO")$score,
-  "Korean", "entropy UID", "SOV", filter(korean_ent_Rankings, word_order == "SOV")$score,
-  "Korean", "entropy UID", "VSO", filter(korean_ent_Rankings, word_order == "VSO")$score,
-  "Korean", "entropy UID", "VOS", filter(korean_ent_Rankings, word_order == "VOS")$score,
-  "Korean", "entropy UID", "OVS", filter(korean_ent_Rankings, word_order == "OVS")$score,
-  "Korean", "entropy UID", "OSV", filter(korean_ent_Rankings, word_order == "OSV")$score,
-  "Korean", "surprisal UID", "SVO", filter(korean_surp_Rankings, word_order == "SVO")$score,
-  "Korean", "surprisal UID", "SOV", filter(korean_surp_Rankings, word_order == "SOV")$score,
-  "Korean", "surprisal UID", "VSO", filter(korean_surp_Rankings, word_order == "VSO")$score,
-  "Korean", "surprisal UID", "VOS", filter(korean_surp_Rankings, word_order == "VOS")$score,
-  "Korean", "surprisal UID", "OVS", filter(korean_surp_Rankings, word_order == "OVS")$score,
-  "Korean", "surprisal UID", "OSV", filter(korean_surp_Rankings, word_order == "OSV")$score,
-  "Korean", "mi", "SVO", filter(korean_mi_Rankings, word_order == "SVO")$score,
-  "Korean", "mi", "SOV", filter(korean_mi_Rankings, word_order == "SOV")$score,
-  "Korean", "mi", "VSO", filter(korean_mi_Rankings, word_order == "VSO")$score,
-  "Korean", "mi", "VOS", filter(korean_mi_Rankings, word_order == "VOS")$score,
-  "Korean", "mi", "OVS", filter(korean_mi_Rankings, word_order == "OVS")$score,
-  "Korean", "mi", "OSV", filter(korean_mi_Rankings, word_order == "OSV")$score,
-  "Mbya Guarani", "entropy UID", "SVO", filter(mbya_guarani_ent_Rankings, word_order == "SVO")$score,
-  "Mbya Guarani", "entropy UID", "SOV", filter(mbya_guarani_ent_Rankings, word_order == "SOV")$score,
-  "Mbya Guarani", "entropy UID", "VSO", filter(mbya_guarani_ent_Rankings, word_order == "VSO")$score,
-  "Mbya Guarani", "entropy UID", "VOS", filter(mbya_guarani_ent_Rankings, word_order == "VOS")$score,
-  "Mbya Guarani", "entropy UID", "OVS", filter(mbya_guarani_ent_Rankings, word_order == "OVS")$score,
-  "Mbya Guarani", "entropy UID", "OSV", filter(mbya_guarani_ent_Rankings, word_order == "OSV")$score,
-  "Mbya Guarani", "surprisal UID", "SVO", filter(mbya_guarani_surp_Rankings, word_order == "SVO")$score,
-  "Mbya Guarani", "surprisal UID", "SOV", filter(mbya_guarani_surp_Rankings, word_order == "SOV")$score,
-  "Mbya Guarani", "surprisal UID", "VSO", filter(mbya_guarani_surp_Rankings, word_order == "VSO")$score,
-  "Mbya Guarani", "surprisal UID", "VOS", filter(mbya_guarani_surp_Rankings, word_order == "VOS")$score,
-  "Mbya Guarani", "surprisal UID", "OVS", filter(mbya_guarani_surp_Rankings, word_order == "OVS")$score,
-  "Mbya Guarani", "surprisal UID", "OSV", filter(mbya_guarani_surp_Rankings, word_order == "OSV")$score,
-  "Mbya Guarani", "mi", "SVO", filter(mbya_guarani_mi_Rankings, word_order == "SVO")$score,
-  "Mbya Guarani", "mi", "SOV", filter(mbya_guarani_mi_Rankings, word_order == "SOV")$score,
-  "Mbya Guarani", "mi", "VSO", filter(mbya_guarani_mi_Rankings, word_order == "VSO")$score,
-  "Mbya Guarani", "mi", "VOS", filter(mbya_guarani_mi_Rankings, word_order == "VOS")$score,
-  "Mbya Guarani", "mi", "OVS", filter(mbya_guarani_mi_Rankings, word_order == "OVS")$score,
-  "Mbya Guarani", "mi", "OSV", filter(mbya_guarani_mi_Rankings, word_order == "OSV")$score,
-  "Dutch", "entropy UID", "SVO", filter(dutch_ent_Rankings, word_order == "SVO")$score,
-  "Dutch", "entropy UID", "SOV", filter(dutch_ent_Rankings, word_order == "SOV")$score,
-  "Dutch", "entropy UID", "VSO", filter(dutch_ent_Rankings, word_order == "VSO")$score,
-  "Dutch", "entropy UID", "VOS", filter(dutch_ent_Rankings, word_order == "VOS")$score,
-  "Dutch", "entropy UID", "OVS", filter(dutch_ent_Rankings, word_order == "OVS")$score,
-  "Dutch", "entropy UID", "OSV", filter(dutch_ent_Rankings, word_order == "OSV")$score,
-  "Dutch", "surprisal UID", "SVO", filter(dutch_surp_Rankings, word_order == "SVO")$score,
-  "Dutch", "surprisal UID", "SOV", filter(dutch_surp_Rankings, word_order == "SOV")$score,
-  "Dutch", "surprisal UID", "VSO", filter(dutch_surp_Rankings, word_order == "VSO")$score,
-  "Dutch", "surprisal UID", "VOS", filter(dutch_surp_Rankings, word_order == "VOS")$score,
-  "Dutch", "surprisal UID", "OVS", filter(dutch_surp_Rankings, word_order == "OVS")$score,
-  "Dutch", "surprisal UID", "OSV", filter(dutch_surp_Rankings, word_order == "OSV")$score,
-  "Dutch", "mi", "SVO", filter(dutch_mi_Rankings, word_order == "SVO")$score,
-  "Dutch", "mi", "SOV", filter(dutch_mi_Rankings, word_order == "SOV")$score,
-  "Dutch", "mi", "VSO", filter(dutch_mi_Rankings, word_order == "VSO")$score,
-  "Dutch", "mi", "VOS", filter(dutch_mi_Rankings, word_order == "VOS")$score,
-  "Dutch", "mi", "OVS", filter(dutch_mi_Rankings, word_order == "OVS")$score,
-  "Dutch", "mi", "OSV", filter(dutch_mi_Rankings, word_order == "OSV")$score,
-  "Tagalog", "entropy UID", "SVO", filter(tagalog_ent_Rankings, word_order == "SVO")$score,
-  "Tagalog", "entropy UID", "SOV", filter(tagalog_ent_Rankings, word_order == "SOV")$score,
-  "Tagalog", "entropy UID", "VSO", filter(tagalog_ent_Rankings, word_order == "VSO")$score,
-  "Tagalog", "entropy UID", "VOS", filter(tagalog_ent_Rankings, word_order == "VOS")$score,
-  "Tagalog", "entropy UID", "OVS", filter(tagalog_ent_Rankings, word_order == "OVS")$score,
-  "Tagalog", "entropy UID", "OSV", filter(tagalog_ent_Rankings, word_order == "OSV")$score,
-  "Tagalog", "surprisal UID", "SVO", filter(tagalog_surp_Rankings, word_order == "SVO")$score,
-  "Tagalog", "surprisal UID", "SOV", filter(tagalog_surp_Rankings, word_order == "SOV")$score,
-  "Tagalog", "surprisal UID", "VSO", filter(tagalog_surp_Rankings, word_order == "VSO")$score,
-  "Tagalog", "surprisal UID", "VOS", filter(tagalog_surp_Rankings, word_order == "VOS")$score,
-  "Tagalog", "surprisal UID", "OVS", filter(tagalog_surp_Rankings, word_order == "OVS")$score,
-  "Tagalog", "surprisal UID", "OSV", filter(tagalog_surp_Rankings, word_order == "OSV")$score,
-  "Tagalog", "mi", "SVO", filter(tagalog_mi_Rankings, word_order == "SVO")$score,
-  "Tagalog", "mi", "SOV", filter(tagalog_mi_Rankings, word_order == "SOV")$score,
-  "Tagalog", "mi", "VSO", filter(tagalog_mi_Rankings, word_order == "VSO")$score,
-  "Tagalog", "mi", "VOS", filter(tagalog_mi_Rankings, word_order == "VOS")$score,
-  "Tagalog", "mi", "OVS", filter(tagalog_mi_Rankings, word_order == "OVS")$score,
-  "Tagalog", "mi", "OSV", filter(tagalog_mi_Rankings, word_order == "OSV")$score,
-  "Turkish", "entropy UID", "SVO", filter(turkish_ent_Rankings, word_order == "SVO")$score,
-  "Turkish", "entropy UID", "SOV", filter(turkish_ent_Rankings, word_order == "SOV")$score,
-  "Turkish", "entropy UID", "VSO", filter(turkish_ent_Rankings, word_order == "VSO")$score,
-  "Turkish", "entropy UID", "VOS", filter(turkish_ent_Rankings, word_order == "VOS")$score,
-  "Turkish", "entropy UID", "OVS", filter(turkish_ent_Rankings, word_order == "OVS")$score,
-  "Turkish", "entropy UID", "OSV", filter(turkish_ent_Rankings, word_order == "OSV")$score,
-  "Turkish", "surprisal UID", "SVO", filter(turkish_surp_Rankings, word_order == "SVO")$score,
-  "Turkish", "surprisal UID", "SOV", filter(turkish_surp_Rankings, word_order == "SOV")$score,
-  "Turkish", "surprisal UID", "VSO", filter(turkish_surp_Rankings, word_order == "VSO")$score,
-  "Turkish", "surprisal UID", "VOS", filter(turkish_surp_Rankings, word_order == "VOS")$score,
-  "Turkish", "surprisal UID", "OVS", filter(turkish_surp_Rankings, word_order == "OVS")$score,
-  "Turkish", "surprisal UID", "OSV", filter(turkish_surp_Rankings, word_order == "OSV")$score,
-  "Turkish", "mi", "SVO", filter(turkish_mi_Rankings, word_order == "SVO")$score,
-  "Turkish", "mi", "SOV", filter(turkish_mi_Rankings, word_order == "SOV")$score,
-  "Turkish", "mi", "VSO", filter(turkish_mi_Rankings, word_order == "VSO")$score,
-  "Turkish", "mi", "VOS", filter(turkish_mi_Rankings, word_order == "VOS")$score,
-  "Turkish", "mi", "OVS", filter(turkish_mi_Rankings, word_order == "OVS")$score,
-  "Turkish", "mi", "OSV", filter(turkish_mi_Rankings, word_order == "OSV")$score,
-  "Vietnamese", "entropy UID", "SVO", filter(vietnamese_ent_Rankings, word_order == "SVO")$score,
-  "Vietnamese", "entropy UID", "SOV", filter(vietnamese_ent_Rankings, word_order == "SOV")$score,
-  "Vietnamese", "entropy UID", "VSO", filter(vietnamese_ent_Rankings, word_order == "VSO")$score,
-  "Vietnamese", "entropy UID", "VOS", filter(vietnamese_ent_Rankings, word_order == "VOS")$score,
-  "Vietnamese", "entropy UID", "OVS", filter(vietnamese_ent_Rankings, word_order == "OVS")$score,
-  "Vietnamese", "entropy UID", "OSV", filter(vietnamese_ent_Rankings, word_order == "OSV")$score,
-  "Vietnamese", "surprisal UID", "SVO", filter(vietnamese_surp_Rankings, word_order == "SVO")$score,
-  "Vietnamese", "surprisal UID", "SOV", filter(vietnamese_surp_Rankings, word_order == "SOV")$score,
-  "Vietnamese", "surprisal UID", "VSO", filter(vietnamese_surp_Rankings, word_order == "VSO")$score,
-  "Vietnamese", "surprisal UID", "VOS", filter(vietnamese_surp_Rankings, word_order == "VOS")$score,
-  "Vietnamese", "surprisal UID", "OVS", filter(vietnamese_surp_Rankings, word_order == "OVS")$score,
-  "Vietnamese", "surprisal UID", "OSV", filter(vietnamese_surp_Rankings, word_order == "OSV")$score,
-  "Vietnamese", "mi", "SVO", filter(vietnamese_mi_Rankings, word_order == "SVO")$score,
-  "Vietnamese", "mi", "SOV", filter(vietnamese_mi_Rankings, word_order == "SOV")$score,
-  "Vietnamese", "mi", "VSO", filter(vietnamese_mi_Rankings, word_order == "VSO")$score,
-  "Vietnamese", "mi", "VOS", filter(vietnamese_mi_Rankings, word_order == "VOS")$score,
-  "Vietnamese", "mi", "OVS", filter(vietnamese_mi_Rankings, word_order == "OVS")$score,
-  "Vietnamese", "mi", "OSV", filter(vietnamese_mi_Rankings, word_order == "OSV")$score,
-  "Warlpiri", "entropy UID", "SVO", filter(warlpiri_ent_Rankings, word_order == "SVO")$score,
-  "Warlpiri", "entropy UID", "SOV", filter(warlpiri_ent_Rankings, word_order == "SOV")$score,
-  "Warlpiri", "entropy UID", "VSO", filter(warlpiri_ent_Rankings, word_order == "VSO")$score,
-  "Warlpiri", "entropy UID", "VOS", filter(warlpiri_ent_Rankings, word_order == "VOS")$score,
-  "Warlpiri", "entropy UID", "OVS", filter(warlpiri_ent_Rankings, word_order == "OVS")$score,
-  "Warlpiri", "entropy UID", "OSV", filter(warlpiri_ent_Rankings, word_order == "OSV")$score,
-  "Warlpiri", "surprisal UID", "SVO", filter(warlpiri_surp_Rankings, word_order == "SVO")$score,
-  "Warlpiri", "surprisal UID", "SOV", filter(warlpiri_surp_Rankings, word_order == "SOV")$score,
-  "Warlpiri", "surprisal UID", "VSO", filter(warlpiri_surp_Rankings, word_order == "VSO")$score,
-  "Warlpiri", "surprisal UID", "VOS", filter(warlpiri_surp_Rankings, word_order == "VOS")$score,
-  "Warlpiri", "surprisal UID", "OVS", filter(warlpiri_surp_Rankings, word_order == "OVS")$score,
-  "Warlpiri", "surprisal UID", "OSV", filter(warlpiri_surp_Rankings, word_order == "OSV")$score,
-  "Warlpiri", "mi", "SVO", filter(warlpiri_mi_Rankings, word_order == "SVO")$score,
-  "Warlpiri", "mi", "SOV", filter(warlpiri_mi_Rankings, word_order == "SOV")$score,
-  "Warlpiri", "mi", "VSO", filter(warlpiri_mi_Rankings, word_order == "VSO")$score,
-  "Warlpiri", "mi", "VOS", filter(warlpiri_mi_Rankings, word_order == "VOS")$score,
-  "Warlpiri", "mi", "OVS", filter(warlpiri_mi_Rankings, word_order == "OVS")$score,
-  "Warlpiri", "mi", "OSV", filter(warlpiri_mi_Rankings, word_order == "OSV")$score,
-  "Wolof", "entropy UID", "SVO", filter(wolof_ent_Rankings, word_order == "SVO")$score,
-  "Wolof", "entropy UID", "SOV", filter(wolof_ent_Rankings, word_order == "SOV")$score,
-  "Wolof", "entropy UID", "VSO", filter(wolof_ent_Rankings, word_order == "VSO")$score,
-  "Wolof", "entropy UID", "VOS", filter(wolof_ent_Rankings, word_order == "VOS")$score,
-  "Wolof", "entropy UID", "OVS", filter(wolof_ent_Rankings, word_order == "OVS")$score,
-  "Wolof", "entropy UID", "OSV", filter(wolof_ent_Rankings, word_order == "OSV")$score,
-  "Wolof", "surprisal UID", "SVO", filter(wolof_surp_Rankings, word_order == "SVO")$score,
-  "Wolof", "surprisal UID", "SOV", filter(wolof_surp_Rankings, word_order == "SOV")$score,
-  "Wolof", "surprisal UID", "VSO", filter(wolof_surp_Rankings, word_order == "VSO")$score,
-  "Wolof", "surprisal UID", "VOS", filter(wolof_surp_Rankings, word_order == "VOS")$score,
-  "Wolof", "surprisal UID", "OVS", filter(wolof_surp_Rankings, word_order == "OVS")$score,
-  "Wolof", "surprisal UID", "OSV", filter(wolof_surp_Rankings, word_order == "OSV")$score,
-  "Wolof", "mi", "SVO", filter(wolof_mi_Rankings, word_order == "SVO")$score,
-  "Wolof", "mi", "SOV", filter(wolof_mi_Rankings, word_order == "SOV")$score,
-  "Wolof", "mi", "VSO", filter(wolof_mi_Rankings, word_order == "VSO")$score,
-  "Wolof", "mi", "VOS", filter(wolof_mi_Rankings, word_order == "VOS")$score,
-  "Wolof", "mi", "OVS", filter(wolof_mi_Rankings, word_order == "OVS")$score,
-  "Wolof", "mi", "OSV", filter(wolof_mi_Rankings, word_order == "OSV")$score,
-  "Mandarin", "entropy UID", "SVO", filter(mandarin_ent_Rankings, word_order == "SVO")$score,
-  "Mandarin", "entropy UID", "SOV", filter(mandarin_ent_Rankings, word_order == "SOV")$score,
-  "Mandarin", "entropy UID", "VSO", filter(mandarin_ent_Rankings, word_order == "VSO")$score,
-  "Mandarin", "entropy UID", "VOS", filter(mandarin_ent_Rankings, word_order == "VOS")$score,
-  "Mandarin", "entropy UID", "OVS", filter(mandarin_ent_Rankings, word_order == "OVS")$score,
-  "Mandarin", "entropy UID", "OSV", filter(mandarin_ent_Rankings, word_order == "OSV")$score,
-  "Mandarin", "surprisal UID", "SVO", filter(mandarin_surp_Rankings, word_order == "SVO")$score,
-  "Mandarin", "surprisal UID", "SOV", filter(mandarin_surp_Rankings, word_order == "SOV")$score,
-  "Mandarin", "surprisal UID", "VSO", filter(mandarin_surp_Rankings, word_order == "VSO")$score,
-  "Mandarin", "surprisal UID", "VOS", filter(mandarin_surp_Rankings, word_order == "VOS")$score,
-  "Mandarin", "surprisal UID", "OVS", filter(mandarin_surp_Rankings, word_order == "OVS")$score,
-  "Mandarin", "surprisal UID", "OSV", filter(mandarin_surp_Rankings, word_order == "OSV")$score,
-  "Mandarin", "mi", "SVO", filter(mandarin_mi_Rankings, word_order == "SVO")$score,
-  "Mandarin", "mi", "SOV", filter(mandarin_mi_Rankings, word_order == "SOV")$score,
-  "Mandarin", "mi", "VSO", filter(mandarin_mi_Rankings, word_order == "VSO")$score,
-  "Mandarin", "mi", "VOS", filter(mandarin_mi_Rankings, word_order == "VOS")$score,
-  "Mandarin", "mi", "OVS", filter(mandarin_mi_Rankings, word_order == "OVS")$score,
-  "Mandarin", "mi", "OSV", filter(mandarin_mi_Rankings, word_order == "OSV")$score
+  ~language, ~measure, ~word_order, ~score, ~rank
+) %>% 
+  bind_rows(calcEntRankings(filter(afrikaans, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(afrikaans, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(afrikaans, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(akkadian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(akkadian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(akkadian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(amharic, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(amharic, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(amharic, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(ancient_greek, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(ancient_greek, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(ancient_greek, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(arabic, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(arabic, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(arabic, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(armenian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(armenian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(armenian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(assyrian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(assyrian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(assyrian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(bambara, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(bambara, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(bambara, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(basque, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(basque, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(basque, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(belarusian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(belarusian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(belarusian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(bhojpuri, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(bhojpuri, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(bhojpuri, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(breton, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(breton, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(breton, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(bulgarian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(bulgarian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(bulgarian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(buryat, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(buryat, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(buryat, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(cantonese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(cantonese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(cantonese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(catalan, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(catalan, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(catalan, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(classical_chinese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(classical_chinese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(classical_chinese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(coptic, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(coptic, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(coptic, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(croatian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(croatian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(croatian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(czech, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(czech, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(czech, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(danish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(danish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(danish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(dutch, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(dutch, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(dutch, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(english, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(english, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(english, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(childes, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(childes, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(childes, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(erzya, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(erzya, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(erzya, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(estonian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(estonian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(estonian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(faroese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(faroese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(faroese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(farsi, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(farsi, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(farsi, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(finnish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(finnish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(finnish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(french, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(french, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(french, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(galician, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(galician, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(galician, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(german, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(german, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(german, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(gothic, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(gothic, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(gothic, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(hebrew, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(hebrew, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(hebrew, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(hindi, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(hindi, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(hindi, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(hungarian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(hungarian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(hungarian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(indonesian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(indonesian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(indonesian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(irish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(irish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(irish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(italian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(italian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(italian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(japanese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(japanese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(japanese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(karelian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(karelian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(karelian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(kazakh, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(kazakh, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(kazakh, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(komi_permyak, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(komi_permyak, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(komi_permyak, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(komi_zyrian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(komi_zyrian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(komi_zyrian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(korean, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(korean, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(korean, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(kurmanji, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(kurmanji, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(kurmanji, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(latin, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(latin, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(latin, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(latvian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(latvian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(latvian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(lithuanian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(lithuanian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(lithuanian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(livvi, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(livvi, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(livvi, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(maltese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(maltese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(maltese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(mandarin, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(mandarin, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(mandarin, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(marathi, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(marathi, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(marathi, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(mbya_guarani, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(mbya_guarani, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(mbya_guarani, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(greek, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(greek, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(greek, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(moksha, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(moksha, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(moksha, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(nigerian_pidgin, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(nigerian_pidgin, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(nigerian_pidgin, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(north_sami, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(north_sami, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(north_sami, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(norwegian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(norwegian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(norwegian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(old_church_slavonic, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(old_church_slavonic, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(old_church_slavonic, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(old_french, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(old_french, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(old_french, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(old_russian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(old_russian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(old_russian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(polish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(polish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(polish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(portuguese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(portuguese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(portuguese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(romanian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(romanian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(romanian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(russian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(russian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(russian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(sanskrit, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(sanskrit, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(sanskrit, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(scottish_gaelic, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(scottish_gaelic, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(scottish_gaelic, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(serbian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(serbian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(serbian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(skolt_sami, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(skolt_sami, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(skolt_sami, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(slovakian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(slovakian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(slovakian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(slovenian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(slovenian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(slovenian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(spanish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(spanish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(spanish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(swedish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(swedish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(swedish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(swedish_sign, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(swedish_sign, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(swedish_sign, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(swiss_german, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(swiss_german, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(swiss_german, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(tagalog, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(tagalog, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(tagalog, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(tamil, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(tamil, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(tamil, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(telugu, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(telugu, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(telugu, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(thai, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(thai, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(thai, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(turkish, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(turkish, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(turkish, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(ukrainian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(ukrainian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(ukrainian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(upper_sorbian, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(upper_sorbian, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(upper_sorbian, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(urdu, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(urdu, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(urdu, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(uyghur, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(uyghur, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(uyghur, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(vietnamese, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(vietnamese, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(vietnamese, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(warlpiri, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(warlpiri, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(warlpiri, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(welsh, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(welsh, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(welsh, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(wolof, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(wolof, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(wolof, !language %in% c("subset")))) %>%
+  bind_rows(calcEntRankings(filter(yoruba, !language %in% c("subset")))) %>%
+  bind_rows(calcSurpRankings(filter(yoruba, !language %in% c("subset")))) %>%
+  bind_rows(calcMIRankings(filter(yoruba, !language %in% c("subset"))))
+
+class_accs <- left_join(filter(big_table_o_data, rank == 1), rename(meta, language = Language), big_table_o_data, by = "language") %>%
+  mutate(acc = as.integer(word_order == Classification))
+
+prediction_accuracies_class <- tribble(
+  ~ent_uid, ~surp_uid, ~mi,
+  sum(filter(class_accs, measure == "entropy UID")$acc), sum(filter(class_accs, measure == "surprisal UID")$acc), sum(filter(class_accs, measure == "mi")$acc)
 )
-
-prediction_accuracies_wals <- tribble(
-  ~ent_uid, ~surp_uid, ~mi, ~lang
-)
-
-calc_wals_accuracy <- function(rankings, lang_meta) {
-  i <- 0
-  if(rankings[1,]$score == rankings[2,]$score) {
-    if(rankings[1,1]$word_order == select(lang_meta, WALS_classification)$WALS_classification |
-       rankings[2,1]$word_order == select(lang_meta, WALS_classification)$WALS_classification) {
-      i <- 1
-    }
-  } else {
-    if(rankings[1,1]$word_order == select(lang_meta, WALS_classification)$WALS_classification) {
-      i <- 1
-    }
-  }
-  returnValue(i)
-}
-
-ent <- calc_wals_accuracy(childes_ent_Rankings, childes_meta)
-surp <- calc_wals_accuracy(childes_surp_Rankings, childes_meta)
-mi <- calc_wals_accuracy(childes_mi_Rankings, childes_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = childes_meta$Language)
-
-ent <- calc_wals_accuracy(breton_ent_Rankings, breton_meta)
-surp <- calc_wals_accuracy(breton_surp_Rankings, breton_meta)
-mi <- calc_wals_accuracy(breton_mi_Rankings, breton_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = breton_meta$Language)
-
-ent <- calc_wals_accuracy(welsh_ent_Rankings, welsh_meta)
-surp <- calc_wals_accuracy(welsh_surp_Rankings, welsh_meta)
-mi <- calc_wals_accuracy(welsh_mi_Rankings, welsh_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = welsh_meta$Language)
-
-ent <- calc_wals_accuracy(english_ent_Rankings, english_meta)
-surp <- calc_wals_accuracy(english_surp_Rankings, english_meta)
-mi <- calc_wals_accuracy(english_mi_Rankings, english_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = english_meta$Language)
-
-ent <- calc_wals_accuracy(basque_ent_Rankings, basque_meta)
-surp <- calc_wals_accuracy(basque_surp_Rankings, basque_meta)
-mi <- calc_wals_accuracy(basque_mi_Rankings, basque_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = basque_meta$Language)
-
-ent <- calc_wals_accuracy(irish_ent_Rankings, irish_meta)
-surp <- calc_wals_accuracy(irish_surp_Rankings, irish_meta)
-mi <- calc_wals_accuracy(irish_mi_Rankings, irish_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = irish_meta$Language)
-
-ent <- calc_wals_accuracy(scottish_gaelic_ent_Rankings, scottish_gaelic_meta)
-surp <- calc_wals_accuracy(scottish_gaelic_surp_Rankings, scottish_gaelic_meta)
-mi <- calc_wals_accuracy(scottish_gaelic_mi_Rankings, scottish_gaelic_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = scottish_gaelic_meta$Language)
-
-ent <- calc_wals_accuracy(hindi_ent_Rankings, hindi_meta)
-surp <- calc_wals_accuracy(hindi_surp_Rankings, hindi_meta)
-mi <- calc_wals_accuracy(hindi_mi_Rankings, hindi_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = hindi_meta$Language)
-
-ent <- calc_wals_accuracy(indonesian_ent_Rankings, indonesian_meta)
-surp <- calc_wals_accuracy(indonesian_surp_Rankings, indonesian_meta)
-mi <- calc_wals_accuracy(indonesian_mi_Rankings, indonesian_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = indonesian_meta$Language)
-
-ent <- calc_wals_accuracy(japanese_ent_Rankings, japanese_meta)
-surp <- calc_wals_accuracy(japanese_surp_Rankings, japanese_meta)
-mi <- calc_wals_accuracy(japanese_mi_Rankings, japanese_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = japanese_meta$Language)
-
-ent <- calc_wals_accuracy(korean_ent_Rankings, korean_meta)
-surp <- calc_wals_accuracy(korean_surp_Rankings, korean_meta)
-mi <- calc_wals_accuracy(korean_mi_Rankings, korean_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = korean_meta$Language)
-
-ent <- calc_wals_accuracy(mbya_guarani_ent_Rankings, mbya_guarani_meta)
-surp <- calc_wals_accuracy(mbya_guarani_surp_Rankings, mbya_guarani_meta)
-mi <- calc_wals_accuracy(mbya_guarani_mi_Rankings, mbya_guarani_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = mbya_guarani_meta$Language)
-
-ent <- calc_wals_accuracy(tagalog_ent_Rankings, tagalog_meta)
-surp <- calc_wals_accuracy(tagalog_surp_Rankings, tagalog_meta)
-mi <- calc_wals_accuracy(tagalog_mi_Rankings, tagalog_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = tagalog_meta$Language)
-
-ent <- calc_wals_accuracy(turkish_ent_Rankings, turkish_meta)
-surp <- calc_wals_accuracy(turkish_surp_Rankings, turkish_meta)
-mi <- calc_wals_accuracy(turkish_mi_Rankings, turkish_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = turkish_meta$Language)
-
-ent <- calc_wals_accuracy(vietnamese_ent_Rankings, vietnamese_meta)
-surp <- calc_wals_accuracy(vietnamese_surp_Rankings, vietnamese_meta)
-mi <- calc_wals_accuracy(vietnamese_mi_Rankings, vietnamese_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = vietnamese_meta$Language)
-
-ent <- calc_wals_accuracy(wolof_ent_Rankings, wolof_meta)
-surp <- calc_wals_accuracy(wolof_surp_Rankings, wolof_meta)
-mi <- calc_wals_accuracy(wolof_mi_Rankings, wolof_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = wolof_meta$Language)
-
-ent <- calc_wals_accuracy(mandarin_ent_Rankings, mandarin_meta)
-surp <- calc_wals_accuracy(mandarin_surp_Rankings, mandarin_meta)
-mi <- calc_wals_accuracy(mandarin_mi_Rankings, mandarin_meta)
-prediction_accuracies_wals <- add_row(prediction_accuracies_wals, ent_uid = ent, surp_uid = surp, mi = mi, lang = mandarin_meta$Language)
 
 most_common_word_order <- function(df) {
   x <- select(df, SVO, SOV, VSO, VOS, OVS, OSV)
   colnames(x)[apply(x,1,which.max)]
 }
 
+count_accs <- left_join(filter(big_table_o_data, rank == 1), rename(mutate(meta, most_common = most_common_word_order(meta)), language = Language), big_table_o_data, by = "language") %>%
+  mutate(acc = as.integer(word_order == most_common))
+
+
 prediction_accuracies_counts <- tribble(
-  ~ent_uid, ~surp_uid, ~mi, ~lang
+  ~ent_uid, ~surp_uid, ~mi,
+  sum(filter(count_accs, measure == "entropy UID")$acc), sum(filter(count_accs, measure == "surprisal UID")$acc), sum(filter(count_accs, measure == "mi")$acc)
 )
 
-calc_counts_accuracy <- function(rankings, lang_meta) {
-  i <- 0
-  word_order <- most_common_word_order(lang_meta)
-  if(rankings[1,]$score == rankings[2,]$score) {
-    if(rankings[1,1]$word_order == word_order |
-       rankings[2,1]$word_order == word_order) {
-      i <- 1
-    }
-  } else {
-    if(rankings[1,1]$word_order == word_order) {
-      i <- 1
-    }
-  }
-  returnValue(i)
-}
-
-ent <- calc_counts_accuracy(childes_ent_Rankings, childes_meta)
-surp <- calc_counts_accuracy(childes_surp_Rankings, childes_meta)
-mi <- calc_counts_accuracy(childes_mi_Rankings, childes_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = childes_meta$Language)
-
-ent <- calc_counts_accuracy(breton_ent_Rankings, breton_meta)
-surp <- calc_counts_accuracy(breton_surp_Rankings, breton_meta)
-mi <- calc_counts_accuracy(breton_mi_Rankings, breton_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = breton_meta$Language)
-
-ent <- calc_counts_accuracy(welsh_ent_Rankings, welsh_meta)
-surp <- calc_counts_accuracy(welsh_surp_Rankings, welsh_meta)
-mi <- calc_counts_accuracy(welsh_mi_Rankings, welsh_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = welsh_meta$Language)
-
-ent <- calc_counts_accuracy(german_ent_Rankings, german_meta)
-surp <- calc_counts_accuracy(german_surp_Rankings, german_meta)
-mi <- calc_counts_accuracy(german_mi_Rankings, german_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = german_meta$Language)
-
-ent <- calc_counts_accuracy(english_ent_Rankings, english_meta)
-surp <- calc_counts_accuracy(english_surp_Rankings, english_meta)
-mi <- calc_counts_accuracy(english_mi_Rankings, english_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = english_meta$Language)
-
-ent <- calc_counts_accuracy(basque_ent_Rankings, basque_meta)
-surp <- calc_counts_accuracy(basque_surp_Rankings, basque_meta)
-mi <- calc_counts_accuracy(basque_mi_Rankings, basque_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = basque_meta$Language)
-
-ent <- calc_counts_accuracy(irish_ent_Rankings, irish_meta)
-surp <- calc_counts_accuracy(irish_surp_Rankings, irish_meta)
-mi <- calc_counts_accuracy(irish_mi_Rankings, irish_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = irish_meta$Language)
-
-ent <- calc_counts_accuracy(scottish_gaelic_ent_Rankings, scottish_gaelic_meta)
-surp <- calc_counts_accuracy(scottish_gaelic_surp_Rankings, scottish_gaelic_meta)
-mi <- calc_counts_accuracy(scottish_gaelic_mi_Rankings, scottish_gaelic_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = scottish_gaelic_meta$Language)
-
-ent <- calc_counts_accuracy(hindi_ent_Rankings, hindi_meta)
-surp <- calc_counts_accuracy(hindi_surp_Rankings, hindi_meta)
-mi <- calc_counts_accuracy(hindi_mi_Rankings, hindi_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = hindi_meta$Language)
-
-ent <- calc_counts_accuracy(hungarian_ent_Rankings, hungarian_meta)
-surp <- calc_counts_accuracy(hungarian_surp_Rankings, hungarian_meta)
-mi <- calc_counts_accuracy(hungarian_mi_Rankings, hungarian_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = hungarian_meta$Language)
-
-ent <- calc_counts_accuracy(indonesian_ent_Rankings, indonesian_meta)
-surp <- calc_counts_accuracy(indonesian_surp_Rankings, indonesian_meta)
-mi <- calc_counts_accuracy(indonesian_mi_Rankings, indonesian_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = indonesian_meta$Language)
-
-ent <- calc_counts_accuracy(japanese_ent_Rankings, japanese_meta)
-surp <- calc_counts_accuracy(japanese_surp_Rankings, japanese_meta)
-mi <- calc_counts_accuracy(japanese_mi_Rankings, japanese_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = japanese_meta$Language)
-
-ent <- calc_counts_accuracy(korean_ent_Rankings, korean_meta)
-surp <- calc_counts_accuracy(korean_surp_Rankings, korean_meta)
-mi <- calc_counts_accuracy(korean_mi_Rankings, korean_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = korean_meta$Language)
-
-ent <- calc_counts_accuracy(mbya_guarani_ent_Rankings, mbya_guarani_meta)
-surp <- calc_counts_accuracy(mbya_guarani_surp_Rankings, mbya_guarani_meta)
-mi <- calc_counts_accuracy(mbya_guarani_mi_Rankings, mbya_guarani_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = mbya_guarani_meta$Language)
-
-ent <- calc_counts_accuracy(dutch_ent_Rankings, dutch_meta)
-surp <- calc_counts_accuracy(dutch_surp_Rankings, dutch_meta)
-mi <- calc_counts_accuracy(dutch_mi_Rankings, dutch_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = dutch_meta$Language)
-
-ent <- calc_counts_accuracy(tagalog_ent_Rankings, tagalog_meta)
-surp <- calc_counts_accuracy(tagalog_surp_Rankings, tagalog_meta)
-mi <- calc_counts_accuracy(tagalog_mi_Rankings, tagalog_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = tagalog_meta$Language)
-
-ent <- calc_counts_accuracy(turkish_ent_Rankings, turkish_meta)
-surp <- calc_counts_accuracy(turkish_surp_Rankings, turkish_meta)
-mi <- calc_counts_accuracy(turkish_mi_Rankings, turkish_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = turkish_meta$Language)
-
-ent <- calc_counts_accuracy(vietnamese_ent_Rankings, vietnamese_meta)
-surp <- calc_counts_accuracy(vietnamese_surp_Rankings, vietnamese_meta)
-mi <- calc_counts_accuracy(vietnamese_mi_Rankings, vietnamese_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = vietnamese_meta$Language)
-
-ent <- calc_counts_accuracy(warlpiri_ent_Rankings, warlpiri_meta)
-surp <- calc_counts_accuracy(warlpiri_surp_Rankings, warlpiri_meta)
-mi <- calc_counts_accuracy(warlpiri_mi_Rankings, warlpiri_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = warlpiri_meta$Language)
-
-ent <- calc_counts_accuracy(wolof_ent_Rankings, wolof_meta)
-surp <- calc_counts_accuracy(wolof_surp_Rankings, wolof_meta)
-mi <- calc_counts_accuracy(wolof_mi_Rankings, wolof_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = wolof_meta$Language)
-
-ent <- calc_counts_accuracy(mandarin_ent_Rankings, mandarin_meta)
-surp <- calc_counts_accuracy(mandarin_surp_Rankings, mandarin_meta)
-mi <- calc_counts_accuracy(mandarin_mi_Rankings, mandarin_meta)
-prediction_accuracies_counts <- add_row(prediction_accuracies_counts, ent_uid = ent, surp_uid = surp, mi = mi, lang = mandarin_meta$Language)
-
-(sum(prediction_accuracies_wals$ent_uid))
-(sum(prediction_accuracies_wals$surp_uid))
-(sum(prediction_accuracies_wals$mi))
-
-(sum(prediction_accuracies_counts$ent_uid))
-(sum(prediction_accuracies_counts$surp_uid))
-(sum(prediction_accuracies_counts$mi))
-
-svo_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "SVO") %>% select(score) %>% sum/20
-sov_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "SOV") %>% select(score) %>% sum/20
-vso_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "VSO") %>% select(score) %>% sum/20
-vos_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "VOS") %>% select(score) %>% sum/20
-ovs_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "OVS") %>% select(score) %>% sum/20
-osv_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "OSV") %>% select(score) %>% sum/20
+svo_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "SVO") %>% select(score) %>% sum/89
+sov_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "SOV") %>% select(score) %>% sum/89
+vso_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "VSO") %>% select(score) %>% sum/89
+vos_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "VOS") %>% select(score) %>% sum/89
+ovs_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "OVS") %>% select(score) %>% sum/89
+osv_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "entropy UID") %>% filter(word_order == "OSV") %>% select(score) %>% sum/89
 
 (tribble(
   ~word_order, ~score,
@@ -855,14 +1237,15 @@ osv_agg_ent <- big_table_o_data %>% filter(language != "English CHILDES") %>% fi
   "VOS", vos_agg_ent,
   "VSO", vso_agg_ent,
   "SVO", svo_agg_ent
-) %>% arrange(score))
+) %>% arrange(score) %>%
+    mutate(rank = min_rank(score)))
 
-svo_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "SVO") %>% select(score) %>% sum/20
-sov_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "SOV") %>% select(score) %>% sum/20
-vso_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "VSO") %>% select(score) %>% sum/20
-vos_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "VOS") %>% select(score) %>% sum/20
-ovs_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "OVS") %>% select(score) %>% sum/20
-osv_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "OSV") %>% select(score) %>% sum/20
+svo_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "SVO") %>% select(score) %>% sum/89
+sov_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "SOV") %>% select(score) %>% sum/89
+vso_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "VSO") %>% select(score) %>% sum/89
+vos_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "VOS") %>% select(score) %>% sum/89
+ovs_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "OVS") %>% select(score) %>% sum/89
+osv_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% filter(measure == "surprisal UID") %>% filter(word_order == "OSV") %>% select(score) %>% sum/89
 
 (tribble(
   ~word_order, ~score,
@@ -872,178 +1255,108 @@ osv_agg_surp <- big_table_o_data %>% filter(language != "English CHILDES") %>% f
   "VOS", vos_agg_surp,
   "VSO", vso_agg_surp,
   "SVO", svo_agg_surp
-) %>% arrange(score))
+) %>% arrange(score) %>%
+    mutate(rank = min_rank(score)))
 
-z_scores <- tribble(
-  ~language, ~word_order, ~score
-)
 z_score <- function(df) {
   mean_mi <- mean(df$Mutual_Information)
   sd_mi <- sd(df$Mutual_Information)
   df %>% mutate(mi_z_score = (Mutual_Information-mean_mi)/sd_mi)
 }
 
-z <- english %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "English", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "English", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "English", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "English", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "English", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "English", word_order = z$word_order[6], score = z$mi_z_score[6])
+z_scores <- tribble(
+  ~language, ~word_order, ~score
+) %>% bind_rows(rename(filter(afrikaans, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(akkadian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(amharic, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(ancient_greek, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(arabic, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(armenian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(assyrian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(bambara, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(basque, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(belarusian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(bhojpuri, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(breton, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(bulgarian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(buryat, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(cantonese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(catalan, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(classical_chinese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(coptic, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(croatian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(czech, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(danish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(dutch, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(english, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(erzya, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(estonian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(faroese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(farsi, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(finnish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(french, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(galician, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(german, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(gothic, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(greek, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(hebrew, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(hindi, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(hungarian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(indonesian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(irish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(italian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(japanese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(karelian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(komi_permyak, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(komi_zyrian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(korean, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(kurmanji, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(latin, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(latvian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(lithuanian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(livvi, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(maltese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(mandarin, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(marathi, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(mbya_guarani, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(moksha, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(nigerian_pidgin, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(north_sami, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(norwegian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(old_church_slavonic, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(old_french, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(old_russian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(polish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(portuguese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(romanian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(russian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(sanskrit, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(scottish_gaelic, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(serbian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(skolt_sami, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(slovakian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(slovenian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(spanish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(swedish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(swedish_sign, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(swiss_german, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(tagalog, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(tamil, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(telugu, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(thai, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(turkish, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(ukrainian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(upper_sorbian, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(urdu, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(vietnamese, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(uyghur, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(warlpiri, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(welsh, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(wolof, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(yoruba, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score)) %>%
+  bind_rows(rename(filter(kazakh, !language %in% c("subset")) %>% z_score %>% calcZScoreRankings, score = mi_z_score))
 
-z <- breton %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Breton", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Breton", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Breton", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Breton", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Breton", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Breton", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- welsh %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Welsh", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Welsh", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Welsh", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Welsh", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Welsh", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Welsh", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- german %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "German", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "German", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "German", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "German", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "German", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "German", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- basque %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Basque", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Basque", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Basque", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Basque", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Basque", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Basque", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- irish %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Irish", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Irish", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Irish", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Irish", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Irish", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Irish", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- scottish_gaelic %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Scottish Gaelic", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Scottish Gaelic", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Scottish Gaelic", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Scottish Gaelic", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Scottish Gaelic", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Scottish Gaelic", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- hindi %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Hindi", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Hindi", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Hindi", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Hindi", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Hindi", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Hindi", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- hungarian %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Hungarian", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Hungarian", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Hungarian", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Hungarian", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Hungarian", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Hungarian", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- indonesian %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Indonesian", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Indonesian", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Indonesian", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Indonesian", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Indonesian", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Indonesian", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- japanese %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Japanese", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Japanese", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Japanese", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Japanese", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Japanese", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Japanese", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- korean %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Korean", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Korean", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Korean", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Korean", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Korean", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Korean", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- mbya_guarani %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Mbya Guarani", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Mbya Guarani", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Mbya Guarani", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Mbya Guarani", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Mbya Guarani", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Mbya Guarani", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- dutch %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Dutch", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Dutch", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Dutch", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Dutch", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Dutch", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Dutch", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- tagalog %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Tagalog", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Tagalog", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Tagalog", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Tagalog", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Tagalog", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Tagalog", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- turkish %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Turkish", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Turkish", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Turkish", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Turkish", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Turkish", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Turkish", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- vietnamese %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Vietnamese", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Vietnamese", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Vietnamese", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Vietnamese", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Vietnamese", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Vietnamese", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- warlpiri %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Warlpiri", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Warlpiri", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Warlpiri", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Warlpiri", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Warlpiri", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Warlpiri", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- wolof %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Wolof", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Wolof", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Wolof", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Wolof", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Wolof", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Wolof", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-z <- mandarin %>% z_score %>% calcZScoreRankings
-z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_order[1], score = z$mi_z_score[1])
-z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_order[2], score = z$mi_z_score[2])
-z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_order[3], score = z$mi_z_score[3])
-z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_order[4], score = z$mi_z_score[4])
-z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_order[5], score = z$mi_z_score[5])
-z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_order[6], score = z$mi_z_score[6])
-
-(svo_agg_mi <- z_scores %>% filter(word_order == "SVO") %>% select(score) %>% sum(na.rm = TRUE)/20)
+(svo_agg_mi <- z_scores %>% filter(word_order == "SVO") %>% select(score) %>% sum(na.rm = TRUE)/89)
 (sov_agg_mi <- z_scores %>% filter(word_order == "SOV") %>% select(score) %>% sum(na.rm = TRUE)/20)
 (vso_agg_mi <- z_scores %>% filter(word_order == "VSO") %>% select(score) %>% sum(na.rm = TRUE)/20)
 (vos_agg_mi <- z_scores %>% filter(word_order == "VOS") %>% select(score) %>% sum(na.rm = TRUE)/20)
@@ -1060,7 +1373,7 @@ z_scores <- z_scores %>% add_row(language = "Mandarin", word_order = z$word_orde
   "SVO", svo_agg_mi
 ) %>% arrange(score))
 
-big_table_o_data <- add_column(big_table_o_data, proportion = c(childes_meta$SVO/childes_meta$Tokens, childes_meta$SOV/childes_meta$Tokens, childes_meta$VSO/childes_meta$Tokens, childes_meta$VOS/childes_meta$Tokens, childes_meta$OVS/childes_meta$Tokens, childes_meta$OSV/childes_meta$Tokens,
+(big_table_o_data <- add_column(big_table_o_data, proportion = c(childes_meta$SVO/childes_meta$Tokens, childes_meta$SOV/childes_meta$Tokens, childes_meta$VSO/childes_meta$Tokens, childes_meta$VOS/childes_meta$Tokens, childes_meta$OVS/childes_meta$Tokens, childes_meta$OSV/childes_meta$Tokens,
                                                           childes_meta$SVO/childes_meta$Tokens, childes_meta$SOV/childes_meta$Tokens, childes_meta$VSO/childes_meta$Tokens, childes_meta$VOS/childes_meta$Tokens, childes_meta$OVS/childes_meta$Tokens, childes_meta$OSV/childes_meta$Tokens,
                                                           childes_meta$SVO/childes_meta$Tokens, childes_meta$SOV/childes_meta$Tokens, childes_meta$VSO/childes_meta$Tokens, childes_meta$VOS/childes_meta$Tokens, childes_meta$OVS/childes_meta$Tokens, childes_meta$OSV/childes_meta$Tokens,
                                                           breton_meta$SVO/breton_meta$Tokens, breton_meta$SOV/breton_meta$Tokens, breton_meta$VSO/breton_meta$Tokens, breton_meta$VOS/breton_meta$Tokens, breton_meta$OVS/breton_meta$Tokens, breton_meta$OSV/breton_meta$Tokens,
@@ -1122,5 +1435,235 @@ big_table_o_data <- add_column(big_table_o_data, proportion = c(childes_meta$SVO
                                                           wolof_meta$SVO/wolof_meta$Tokens, wolof_meta$SOV/wolof_meta$Tokens, wolof_meta$VSO/wolof_meta$Tokens, wolof_meta$VOS/wolof_meta$Tokens, wolof_meta$OVS/wolof_meta$Tokens, wolof_meta$OSV/wolof_meta$Tokens,
                                                           mandarin_meta$SVO/mandarin_meta$Tokens, mandarin_meta$SOV/mandarin_meta$Tokens, mandarin_meta$VSO/mandarin_meta$Tokens, mandarin_meta$VOS/mandarin_meta$Tokens, mandarin_meta$OVS/mandarin_meta$Tokens, mandarin_meta$OSV/mandarin_meta$Tokens,
                                                           mandarin_meta$SVO/mandarin_meta$Tokens, mandarin_meta$SOV/mandarin_meta$Tokens, mandarin_meta$VSO/mandarin_meta$Tokens, mandarin_meta$VOS/mandarin_meta$Tokens, mandarin_meta$OVS/mandarin_meta$Tokens, mandarin_meta$OSV/mandarin_meta$Tokens,
-                                                          mandarin_meta$SVO/mandarin_meta$Tokens, mandarin_meta$SOV/mandarin_meta$Tokens, mandarin_meta$VSO/mandarin_meta$Tokens, mandarin_meta$VOS/mandarin_meta$Tokens, mandarin_meta$OVS/mandarin_meta$Tokens, mandarin_meta$OSV/mandarin_meta$Tokens)) %>%
-    mutate(proportion = proportion*100)
+                                                          mandarin_meta$SVO/mandarin_meta$Tokens, mandarin_meta$SOV/mandarin_meta$Tokens, mandarin_meta$VSO/mandarin_meta$Tokens, mandarin_meta$VOS/mandarin_meta$Tokens, mandarin_meta$OVS/mandarin_meta$Tokens, mandarin_meta$OSV/mandarin_meta$Tokens)))
+
+cor(mutate(filter(big_table_o_data, measure == "entropy UID"), inv_score = 1/score)$inv_score, filter(big_table_o_data, measure == "entropy UID")$proportion)
+cor(mutate(filter(big_table_o_data, measure == "surprisal UID"), inv_score = 1/score)$inv_score, filter(big_table_o_data, measure == "surprisal UID")$proportion)
+cor(filter(big_table_o_data, measure == "mi")$score, filter(big_table_o_data, measure == "mi")$proportion)
+
+cor.test(mutate(filter(big_table_o_data, measure == "entropy UID"), inv_score = 1/score)$inv_score, filter(big_table_o_data, measure == "entropy UID")$proportion, method = "spearman")
+cor.test(mutate(filter(big_table_o_data, measure == "surprisal UID"), inv_score = 1/score)$inv_score, filter(big_table_o_data, measure == "surprisal UID")$proportion, method = "spearman")
+cor.test(filter(big_table_o_data, measure == "mi")$score, filter(big_table_o_data, measure == "mi")$proportion, method = "spearman")
+
+c("English CHILDES", "Breton", "Welsh", "German", "English", "Basque", "Irish", "Scottish Gaelic", "Hindi", "Hungarian", "Indonesian", "Japanese", "Korean", "Mbya Guarani", "Dutch", "Tagalog", "Turkish", "Vietnamese", "Warlpiri", "Wolof", "Mandarin") %>% map(function(lang) {
+  c("entropy UID", "surprisal UID", "mi") %>% map(function(m, l) {
+    if(m == "mi") {
+    #  cor(filter(big_table_o_data, language == l, measure == m)$score, filter(big_table_o_data, language == l, measure == m)$proportion)
+      cor.test(filter(big_table_o_data, language == l, measure == m)$score, filter(big_table_o_data, language == l, measure == m)$proportion, method = "spearman")
+    } else {
+    #  cor(mutate(filter(big_table_o_data, language == l, measure == m), inv_score = 1/score)$inv_score, filter(big_table_o_data, language == l, measure == m)$proportion)
+      cor.test(mutate(filter(big_table_o_data, language == l, measure == m), inv_score = 1/score)$inv_score, filter(big_table_o_data, language == l, measure == m)$proportion, method = "spearman")
+    }
+  }, l = lang)
+})
+
+calc_order_predictions <- function(meas, order1) {
+  rankings <- big_table_o_data
+  rankings <- filter(rankings, measure == meas) %>%
+      group_by(language)
+  if(meas == "mi") {
+    rankings <- rankings %>%
+      arrange(desc(score), .by_group = TRUE)
+  } else {
+    rankings <- rankings %>%
+      arrange(score, .by_group = TRUE)
+  }
+  tb <- c("English CHILDES", "Breton", "Welsh", "English", "Basque", "Irish", "Scottish Gaelic", "Hindi", "Indonesian", "Japanese", "Korean", "Mbya Guarani", "Tagalog", "Turkish", "Vietnamese", "Wolof", "Mandarin") %>%
+    sapply(function(l) {
+      first <- filter(rankings, language == l)[1,]
+      second <- filter(rankings, language == l)[2,]
+      if(first$score == second$score) {
+        if(first$word_order == order1 |
+           second$word_order == order1) {
+          i <- 1
+        } else {
+          i <- 0
+        }
+      } else {
+        if(first$word_order == order1) {
+          i <- 1
+        } else {
+          i <- 0
+        }
+      }
+    })
+  print(tb)
+  returnValue(sum(tb))
+}
+
+entR <- sum(filter(prediction_accuracies_wals, lang == "childes-brown-eng" | lang == "ud-english" | lang == "ud-mandarin" | lang == "ud-indonesian" | lang == "ud-vietnamese" | lang == "ud-mbya_guarani" | lang == "ud-wolof")$ent_uid)
+surpR <- sum(filter(prediction_accuracies_wals, lang == "childes-brown-eng" | lang == "ud-english" | lang == "ud-mandarin" | lang == "ud-indonesian" | lang == "ud-vietnamese" | lang == "ud-mbya_guarani" | lang == "ud-wolof")$surp_uid)
+miR <- sum(filter(prediction_accuracies_wals, lang == "childes-brown-eng" | lang == "ud-english" | lang == "ud-mandarin" | lang == "ud-indonesian" | lang == "ud-vietnamese" | lang == "ud-mbya_guarani" | lang == "ud-wolof")$mi)
+(svo_conf_matrix <- tribble(
+  ~measure, ~true_pos, ~recall, ~precision,
+  "entropy UID", entR, entR/7, entR/calc_order_predictions("entropy UID", "SVO"),
+  "surprisal UID", surpR, surpR/7, surpR/calc_order_predictions("surprisal UID", "SVO"),
+  "mutual info", miR, miR/7, miR/calc_order_predictions("mi", "SVO")
+))
+
+entR <- sum(filter(prediction_accuracies_wals, lang == "ud-japanese" | lang == "ud-korean" | lang == "ud-hindi" | lang == "ud-turkish" | lang == "ud-basque")$ent_uid)
+surpR <- sum(filter(prediction_accuracies_wals, lang == "ud-japanese" | lang == "ud-korean" | lang == "ud-hindi" | lang == "ud-turkish" | lang == "ud-basque")$surp_uid)
+miR <- sum(filter(prediction_accuracies_wals, lang == "ud-japanese" | lang == "ud-korean" | lang == "ud-hindi" | lang == "ud-turkish" | lang == "ud-basque")$mi)
+(sov_conf_matrix <- tribble(
+  ~measure, ~true_pos, ~recall, ~precision,
+  "entropy UID", entR, entR/5, entR/calc_order_predictions("entropy UID", "SOV"),
+  "surprisal UID", surpR, surpR/5, surpR/calc_order_predictions("surprisal UID", "SOV"),
+  "mutual info", miR, miR/5, miR/calc_order_predictions("mi", "SOV")
+))
+
+entR <- sum(filter(prediction_accuracies_wals, lang == "ud-breton" | lang == "ud-irish" | lang == "ud-scottish_gaelic" | lang == "ud-tagalog" | lang == "ud-welsh")$ent_uid)
+surpR <- sum(filter(prediction_accuracies_wals, lang == "ud-breton" | lang == "ud-irish" | lang == "ud-scottish_gaelic" | lang == "ud-tagalog" | lang == "ud-welsh")$surp_uid)
+miR <- sum(filter(prediction_accuracies_wals, lang == "ud-breton" | lang == "ud-irish" | lang == "ud-scottish_gaelic" | lang == "ud-tagalog" | lang == "ud-welsh")$mi)
+(vso_conf_matrix <- tribble(
+  ~measure, ~true_pos, ~recall, ~precision,
+  "entropy UID", entR, entR/5, entR/calc_order_predictions("entropy UID", "VSO"),
+  "surprisal UID", surpR, surpR/5, surpR/calc_order_predictions("surprisal UID", "VSO"),
+  "mutual info", miR, miR/5, miR/calc_order_predictions("mi", "VSO")
+))
+
+correls <- tribble(
+  ~language, ~measure, ~r, ~dom_order,
+  "English CHILDES", "entropy UID", 0.6324682, "SVO",
+  "Breton", "entropy UID", 0.3845503, "VSO",
+  "Welsh", "entropy UID", 0.4459809, "VSO",
+  "German", "entropy UID", -0.3007341, "None",
+  "English", "entropy UID", 0.4547007, "SVO",
+  "Basque", "entropy UID", -0.5775454, "SOV",
+  "Irish", "entropy UID", 0.3329745, "VSO",
+  "Scottish Gaelic", "entropy UID", 0.1625653, "VSO",
+  "Hindi", "entropy UID", -0.3473683, "SOV",
+  "Hungarian", "entropy UID", -0.582591, "None",
+  "Indonesian", "entropy UID", 0.1793664, "SVO",
+  "Japanese", "entropy UID", -0.4598236, "SOV",
+  "Korean", "entropy UID", 0.5851102, "SOV",
+  "Mbya Guarani", "entropy UID", -0.1709232, "SVO",
+  "Dutch", "entropy UID", 0.2856145, "None",
+  "Tagalog", "entropy UID", 0.1505849, "VSO",
+  "Turkish", "entropy UID", -0.2680761, "SOV",
+  "Vietnamese", "entropy UID", 0.3060113, "SVO",
+  "Warlpiri", "entropy UID", 0.6680841, "None",
+  "Wolof", "entropy UID", 0.7386079, "SVO",
+  "Mandarin", "entropy UID", -0.04177955, "SVO",
+  "English CHILDES", "surprisal UID", -0.03464062, "SVO",
+  "Breton", "surprisal UID", 0.3663543, "VSO",
+  "Welsh", "surprisal UID", 0.4459809, "VSO",
+  "German", "surprisal UID", -0.8078796, "None",
+  "English", "surprisal UID", -0.485443, "SVO",
+  "Basque", "surprisal UID", -0.6199609, "SOV",
+  "Irish", "surprisal UID", 0.7228481, "VSO",
+  "Scottish Gaelic", "surprisal UID", 0.6934322, "VSO",
+  "Hindi", "surprisal UID", -0.3608037, "SOV",
+  "Hungarian", "surprisal UID", -0.5824678, "None",
+  "Indonesian", "surprisal UID", -0.2601404, "SVO",
+  "Japanese", "surprisal UID", -0.4456583, "SOV",
+  "Korean", "surprisal UID", 0.5815809, "SOV",
+  "Mbya Guarani", "surprisal UID", -0.1709232, "SVO",
+  "Dutch", "surprisal UID", -0.8701938, "None",
+  "Tagalog", "surprisal UID", 0.1895209, "VSO",
+  "Turkish", "surprisal UID", -0.3258963, "SOV",
+  "Vietnamese", "surprisal UID", 0.3730164, "SVO",
+  "Warlpiri", "surprisal UID", 0.6526612, "None",
+  "Wolof", "surprisal UID", -0.6759722, "SVO",
+  "Mandarin", "surprisal UID", -0.2288886, "SVO",
+  "English CHILDES", "mutual info", 0.1739146, "SVO",
+  "Breton", "mutual info", -0.5861659, "VSO",
+  "Welsh", "mutual info", -0.4710567, "VSO",
+  "German", "mutual info", 0.1677536, "None",
+  "English", "mutual info", -0.09812509, "SVO",
+  "Basque", "mutual info", -0.07265581, "SOV",
+  "Irish", "mutual info", -0.4303142, "VSO",
+  "Scottish Gaelic", "mutual info", -0.4531177, "VSO",
+  "Hindi", "mutual info", 0.009769402, "SOV",
+  "Hungarian", "mutual info", -0.4654166, "None",
+  "Indonesian", "mutual info", -0.4160634, "SVO",
+  "Japanese", "mutual info", 0.3751736, "SOV",
+  "Korean", "mutual info", 0.08761783, "SOV",
+  "Mbya Guarani", "mutual info", -0.1135553, "SVO",
+  "Dutch", "mutual info", 0.1347135, "None",
+  "Tagalog", "mutual info", -0.6032506, "VSO",
+  "Turkish", "mutual info", 0.4514237, "SOV",
+  "Vietnamese", "mutual info", -0.2892723, "SVO",
+  "Warlpiri", "mutual info", 0.2070285, "None",
+  "Wolof", "mutual info", 0.3350923, "SVO",
+  "Mandarin", "mutual info", -0.5600294, "SVO"
+) %>% arrange(dom_order)
+
+  ggplot(data = filter(correls, dom_order == "SVO")) +
+    geom_bar(mapping = aes(x = language, y = r, fill = dom_order), stat = "identity") +
+    ylim(-1, 1) +
+    facet_wrap(~ measure) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+  
+  ggplot(data = filter(correls, dom_order == "SOV")) +
+    geom_bar(mapping = aes(x = language, y = r, fill = dom_order), stat = "identity") +
+    ylim(-1, 1) +
+    facet_wrap(~ measure) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+    scale_fill_manual(values = "#7CAE00")
+  
+  ggplot(data = filter(correls, dom_order == "VSO")) +
+    geom_bar(mapping = aes(x = language, y = r, fill = dom_order), stat = "identity") +
+    ylim(-1, 1) +
+    facet_wrap(~ measure) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+    scale_fill_manual(values = "#C77CFF")
+  
+  ggplot(data = filter(correls, dom_order == "None")) +
+    geom_bar(mapping = aes(x = language, y = r, fill = dom_order), stat = "identity") +
+    ylim(-1, 1) +
+    facet_wrap(~ measure) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+    scale_fill_manual(values = "#00BFC4")
+  
+  ggplot(data = filter(correls, measure == "mi")) +
+    geom_bar(mapping = aes(x = language, y = r, fill = dom_order), stat = "identity") +
+    ylim(-1, 1) +
+    facet_wrap(~ dom_order) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+ggplot(data = big_table_o_data) +
+  geom_point(mapping = aes(x = score, y = proportion, color = word_order), position = "jitter") +
+  facet_grid(measure ~ language)
+
+(tb <- tribble(
+  ~order, ~count,
+  "SOV", 565,
+  "SVO", 488,
+  "VSO", 95,
+  "VOS", 25,
+  "OVS", 11,
+  "OSV", 4) %>% mutate(prop = count/sum(count)) %>% 
+    add_column(entropy_uid = c(sov_agg_ent, svo_agg_ent, vso_agg_ent, vos_agg_ent, ovs_agg_ent, osv_agg_ent)) %>%
+    mutate(entropy_uid = entropy_uid/sum(entropy_uid)) %>%
+    add_column(surprisal_uid = c(sov_agg_surp, svo_agg_surp, vso_agg_surp, vos_agg_surp, ovs_agg_surp, osv_agg_surp)) %>%
+    mutate(surprisal_uid = surprisal_uid/sum(surprisal_uid)) %>%
+    add_column(mutual_info = c(sov_agg_mi, svo_agg_mi, vso_agg_mi, vos_agg_mi, ovs_agg_mi, osv_agg_mi)) %>%
+    mutate(mutual_info = mutual_info/sum(mutual_info)) %>%
+    mutate(mutual_info = mutual_info-min(mutual_info))
+  )
+tb$order <- factor(tb$order, levels = c("SOV", "SVO", "VSO", "VOS", "OVS", "OSV"))
+
+(plot <- qplot(x = order, y = prop, data = tb, group = 1, color = "WALS calculated proportion") +
+  geom_line(mapping = aes(x = order, y = prop, color = "WALS calculated proportion"), data = tb) +
+  geom_point(data = tb, mapping = aes(x = order, y = entropy_uid, color = "entropy-based UID"), group = 1) +
+  geom_line(mapping = aes(x = order, y = entropy_uid, color = "entropy-based UID"), data = tb) +
+  geom_point(mapping = aes(x = order, y = surprisal_uid, color = "surprisal-based UID"), group = 1) +
+  geom_line(mapping = aes(x = order, y = surprisal_uid, color = "surprisal-based UID")) +
+  geom_point(mapping = aes(x = order, y = mutual_info, color = "mutual information"), group = 1) +
+  geom_line(mapping = aes(x = order, y = mutual_info, color = "mutual information")) +
+  labs(x = "Word order", y = "Proportion (%)", color = "Measure")
+)
+
+
+filter(big_table_o_data, measure == "entropy UID" | measure == "surprisal UID") %>%
+  group_by(language, measure) %>%
+  mutate(rank = min_rank(score))
+
+filter(big_table_o_data, measure == "entropy UID") %>%
+  group_by(language, measure) %>%
+  mutate(rank = min_rank(score)) %>%
+ggplot() +
+  geom_jitter(mapping = aes(x = language, y = rank, color = word_order), size = 2, width = 1, height = 0) +
+  geom_bar(mapping = aes(x = language, y = rank, fill = word_order), stat = "identity", position = "stack") +
+  scale_y_reverse()
+  
